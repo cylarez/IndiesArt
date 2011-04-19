@@ -1,0 +1,71 @@
+{% extends "indiesart.html" %}
+
+{% load helpers %}
+{% block description %}{{ artist.bio|striptags|truncatewords:30 }}{% endblock %}
+{% block keywords %}{{ artist.keywords }},{{ artist.art_types.all|join:","|clean_keywords }}{% endblock %}
+
+{% block title %} - {{ artist }}{% if isCollection %} - {{ artist.collections|first }}{% endif %}{% endblock %}
+
+{% block content %}
+	<h1>{{ artist }}</h1>
+	
+	<div>
+	
+		<h2>Presentation</h2>
+		<p>{{ artist.bio|safe|linebreaksbr }}</p>
+	
+	</div>
+	
+	<div style="clear:both;margin:20px 0;width:33%;float:left;">
+	
+		<h2>Galleries</h2>
+		<ul style="padding-left:15px">
+		{% for collection in artist.collections %}
+			<li>
+				<a class="list" href="{{ collection.url }}">{{ collection }}</a><br />
+				<i>{{ collection.images|length }} images</i>
+			</li>
+		{% endfor %}
+		</ul>
+	</div>
+	
+	<div style="margin:20px 0;width:33%;float:left;">
+	
+		<h2>Web Sites</h2>
+		<ul style="padding-left:15px">
+		{% for url in artist.urls %}
+			<li>
+				<a target="_blank" href="{{ url }}">{{ url }}</a><br />
+				<i>{{ url.url_type }}</i>
+			</li>
+		{% endfor %}
+		</ul>
+	</div>
+	
+	<div style="margin:20px 0;width:33%;float:left;">
+	
+		<h2>Categories</h2>
+		<ul style="padding-left:15px">
+		{% for art_type in artist.art_types.all %}
+			<li>
+				<b style="color:black;">{{ art_type }}</b><br />
+				<i>{{ art_type.artists|length }} Artists in this category</i>
+			</li>
+		{% endfor %}
+		</ul>
+	</div>
+	
+	<div class="clear"></div>
+	
+	<h2>Sample Images</h2>
+	{% for image in artist.images %}
+		{% include "main/image_medium_info.html" %}
+	{% endfor %}
+	<div class="clear"></div>
+	
+	<br />
+	
+	{% include "fb-ads.html" %}
+	
+	
+{% endblock %}

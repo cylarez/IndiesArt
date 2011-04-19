@@ -1,0 +1,27 @@
+{% extends "indiesart.html" %}
+
+{% load helpers %}
+{% block description %}Random images from the indiesArt database. Here you can find inspiration for illustration or graphic design{% endblock %}
+{% block keywords %}random, images, inspiration{% endblock %}
+
+{% block title %} - Random Images{% endblock %}
+
+{% block content %}
+
+	<h1>Random Images</h1>
+	
+	<div class="pager random">
+		<a class="button classy" href="/random">Discover Again!</a>
+	</div>
+	
+	{% for image in images %}
+		{% include "main/image_medium_info.html" %}
+	{% endfor %}
+	
+	<div class="pager random">
+		<a class="button classy" href="/random">Discover Again!</a>
+	</div>
+	
+	{% include "fb-ads.html" %}
+	
+{% endblock %}

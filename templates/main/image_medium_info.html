@@ -1,0 +1,27 @@
+<div class="cadre-image thumbs-medium thumbs-classy"  href="{{ image.url }}">
+	<img src="{{ image.photo.url_200x200 }}" class="piece image" alt="{{ image.name }}" title="{{ image.name }}" />
+	<div class="image-frame">
+		<div class="image-fb">
+			<fb:like style="width:110px" layout="button_count" href="http://www.indiesart.com{% if image.collection.artist.submission %}{{ image.collection.artist.url }}{% else %}{{ image.url }}{% endif %}"></fb:like>
+			<a rel="group" class="fancybox" title="{% include "main/image_info.html" %}" href="{{ image.photo.url }}">Quick View</a>
+			<div class="clear"></div>
+		</div>
+		<div style="image-info">
+			{% if image.collection.artist.submission %}
+			
+			<a class="thumbs-href" href="http://twitter.com/share" data-url="http://www.indiesart.com{{ image.collection.artist.url }}" data-text="I promote {{ image.collection.artist }} in the indiesArt submission process!" class="twitter-share-button" data-count="horizontal" data-via="indiesart">Tweet</a>
+			<br/>
+			{{ image.name }} by {{ image.collection.artist }}<br/>			
+			<a href="{{ image.collection.artist.url }}">View Submission</a>
+			
+			{% else %}
+			
+			<a href="http://twitter.com/share" data-url="http://www.indiesart.com{{ image.url }}" data-text="{{ image.collection.artist }} - {{ image.name }}" class="twitter-share-button" data-count="horizontal" data-via="indiesart">Tweet</a>
+			<br/>
+			{{ image.name }} by {{ image.collection.artist }}<br/>			
+			<a class="thumbs-href" href="{{ image.url }}">View The Image</a> - <a href="{{ image.collection.artist.url }}">Artist Profile</a>
+			
+			{% endif %}
+		</div>
+	</div>
+</div>

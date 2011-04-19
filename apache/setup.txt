@@ -1,0 +1,10 @@
+Alors setup guide!!!
+
+Installer WSGI
+Configurer apache.wsgi (dans le dossier courant)
+installer python 2.6
+Django
+py-mysql 
+py-PIL
+python-twitter
+configurer le fichier settings_local.py!!

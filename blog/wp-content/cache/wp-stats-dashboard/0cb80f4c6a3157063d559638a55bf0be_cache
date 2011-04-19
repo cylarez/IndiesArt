@@ -1,0 +1,748 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"  dir="ltr" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Global Dashboard &rsaquo;  &#8212; WordPress</title>
+<link rel='stylesheet' id='global-css'  href='http://s0.wp.com/wp-admin/css/global.css?m=1295705546g&#038;ver=20110121' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-admin-css'  href='http://s1.wp.com/wp-admin/css/wp-admin.css?m=1297875904g&#038;ver=20110214' type='text/css' media='all' />
+<link rel='stylesheet' href='http://s1.wp.com/wp-admin/css/colors-fresh-wpcom.css?m=1255570234g&#038;version=MU' type='text/css' />
+<link rel='stylesheet' id='colors-css'  href='http://s1.wp.com/wp-admin/css/colors-fresh.css?m=1294081354g&#038;ver=20110121' type='text/css' media='all' />
+<link rel='stylesheet' href='http://s0.wp.com/wp-admin/css/wpcom.css?m=1296756575g&#038;version=MU' type='text/css' />
+<script type="text/javascript">
+function addLoadEvent(func) {if ( typeof wpOnload!='function'){wpOnload=func;}else{ var oldonload=wpOnload;wpOnload=function(){oldonload();func();}}}
+var isRtl = 0;;
+</script>
+<style type="text/css">
+
+/**
+ * Drilldown
+ */
+.statsdiv p {
+	font-size: 12px;
+}
+
+.statsdiv h4 {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+#statsdash {
+	font-size: 14px;
+}
+
+#estats {	/* embedded stats */
+	background: #fff url("/i/thinblueline.gif") top left repeat-x;
+	text-align: right;
+	margin: 0 -14px 6px -14px;
+	padding: 2px 10px 0 0;
+	height: 20px;
+}
+
+#estats, #estats a, #estats a:visited {
+	color: #e8e8f8;
+}
+
+#estats a:hover {
+	background-color: #e8e8f8;
+	color: #224;
+}
+
+.wrap .statsdiv tr, .statsDay tr {
+	height: 22px;
+}
+
+
+/**
+ * Page Views styling
+ */
+.sumdiv, .statsdiv {
+	padding: 0px;
+	max-width: 700px;
+	margin: 0 auto 2em auto;
+}
+.staticmetabox h4, .staticmetabox h3 {
+	font-size: 13px;
+	padding: 10px;
+	margin: 0 0 10px 0;
+	color: #464646;
+	text-shadow: white 0px 1px 0px;
+	border-bottom: 1px solid #DFDFDF;
+	background: #dfdfdf url("images/gray-grad.png") repeat-x top left;}
+.staticmetabox h4:nth-child(1n+2) {
+	border-top: 1px solid #DFDFDF;
+	margin-top: 2em !important;
+}
+
+h3.statstitle {
+	font: normal normal normal 18px/24px Georgia, 'Times New Roman', 'Bitstream Charter', Times, serif;
+	margin: 8px 0px;
+}
+.more {
+	text-align: right;
+}
+.staticmetabox {
+	background: solid #fff;
+	border: 1px solid #dfdfdf;
+	border-radius: 6px;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+}
+.staticmetabox h4 {
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
+	-webkit-border-top-left-radius: 6px;
+	-webkit-border-top-right-radius: 6px;
+	-moz-border-radius-topleft: 6px;
+	-moz-border-radius-topright: 6px;
+}
+.statsdiv {
+	width: 44%;
+	float: left;
+	margin-right: 2%;
+}
+.statsdiv table, .sumdiv table {
+	width: 100%;
+}
+
+.dates {
+	padding: 5px 0 10px 0;
+	position: relative;
+}
+.dates table {
+	background: #fff;
+	width: 100%;
+	
+	border: 1px solid #e3e3e3;
+	border-spacing: 0;
+	border-radius: 6px 6px;
+	-webkit-border-radius: 6px 6px;
+	-moz-border-radius: 6px 6px;
+}
+.dates td, .dates th {
+	padding: 5px 4px;
+	border-top: 1px solid #e3e3e3;
+	border-left: 1px solid #e3e3e3;
+	font-size: 8pt;
+}
+
+.dates tr {
+	background: 0 !important;
+}
+.dates tr.top th {
+	border-top: 0;
+}
+.dates th:first-child {
+	border-left: 0;
+}
+.dates td:first-child {
+	border-left: 0;
+}
+
+
+.totalcol {
+	border-left: 4px solid #e3e3e3 !important;
+}
+
+.highestcount {
+	background: #c7ee6b;
+	border: 1px solid #9fe100 !important;
+}
+.todaycount {
+	font-weight: bold;
+	border: 1px solid #aaa !important;
+}
+.lowestcount {
+	color: #999;
+}
+.nocount {
+	color: #bbb;
+}
+
+
+.statsbox {
+	background: #fff;
+	border: 1px solid #DFDFDF;
+	border-radius: 6px 6px;
+	-webkit-border-radius: 6px 6px;
+	-moz-border-radius: 6px 6px;
+	padding: 10px;
+	position: relative;
+}
+.statscolumn {
+	width: 70%;
+	min-width: 780px;
+	margin: 0 auto;
+}
+
+
+/**
+ * Summary tabs
+ */
+
+.summary-tabs {
+	margin-bottom: 1em;
+}
+.summary-tabs li {
+	display: inline;
+	margin-right: 5px;
+	font-size: 11px;
+}
+.summary-tabs .active a {
+	color: #000;
+	text-decoration: none;
+	font-weight: bold;
+	padding: .2em;
+}
+
+
+/**
+ * CSS Crop
+ */
+table.statsDay {
+	table-layout:fixed;
+}
+td.views, th.views {
+	width: 69px;
+	padding: 0 10px 0 0 !important;
+}
+td.label, th.label {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis; 
+	padding: 0 0 0 10px !important;
+}
+td.more, th.more {
+	width: 36px;
+	padding: 0 2px 0 5px !important;
+}
+
+
+/**
+ * Stats main chart
+ */
+
+#statchart {
+	margin-bottom: 10px;
+	margin-top: 1em;
+}
+
+#stat-chart-container {
+	padding: 10px;
+}
+
+#statchart-box {
+	background: #fff;
+	border-radius: 6px;
+	-moz-border-radius: 6px;
+	position: relative;
+	margin-right: 1px;
+		border: 1px solid #dfdfdf;
+	}
+
+#statchart-box, .postbox-container, .postbox, #side-sortables, #normal-sortables {
+	box-sizing: border-box;
+	-moz-box-sizing:border-box;
+	-webkit-box-sizing:border-box;
+	-ms-box-sizing:border-box;
+}
+
+/* New layout for metaboxes */
+#wpcom-stats-meta-box-container {
+	clear: both;
+}
+.postbox-container {
+	width: 50% !important;
+	padding-right: 0 !important;
+	*width: 49% !important;
+	*padding-right: .5% !important;
+}
+.postbox {
+	width: 100%;
+}
+#normal-sortables {
+	margin-right: 11px !important;
+}
+#side-sortables {
+	margin-left: 11px !important;
+}
+
+
+/**
+ * Stats Nuggets
+ */
+#stats-nuggets ul {
+	padding: 10px;
+	overflow: hidden;
+	position: relative;
+	_height: 1%;
+}
+#stats-nuggets ul li {
+	float: left;
+	width: 25%;
+}
+#stats-nuggets ul li span {
+	font-family: Georgia, "Times New Roman", serif;
+	font-size: 16pt;
+	line-height: 1.5em;
+	display: block;
+}
+li.summarytables {
+	padding-top: 2.5em;
+	text-align: right;
+}
+
+
+/**
+ * General
+ */
+.icon32 {
+		background: url("/i/stats-icon-32.png") top left no-repeat;
+	}
+
+.wrap .statsdiv tr.alternate {
+	background-color: #f5f5f5;
+}
+
+
+/**
+ * Incoming Links
+ */
+#incominglinks p, #incominglinks li {
+	font-size: 11px;
+	height: 20px;
+}
+#incominglinks li {
+	margin: 0 -10px;
+	padding: 2px 10px 0 10px;
+	line-height: 1.6em;
+}
+#incominglinks li a {
+	text-decoration: none;
+}
+#incominglinks li a:hover {
+	text-decoration: underline;
+}
+#incominglinks li:nth-child(even) {
+	background: #f9f9f9;}
+#incominglinks li.other {
+	background: 0;
+	font-weight: bold;
+}
+
+
+/**
+ * Metaboxes 
+ */
+
+.postbox .inside {
+	padding: 10px;
+	margin: 0 !important;
+	*margin: -10px 0 0 0 !important;
+}
+.postbox .inside h3 {
+	color: #333333 !important;
+	background: 0;
+	padding: 0;
+	text-shadow: 0;
+}
+.postbox .all {
+	float: right;
+	margin: 5px 0 0 0;
+	font-weight: bold;
+	font-size: 11px;
+}
+.stats-note {
+	padding: 0 0 20px 0;
+	clear: both;
+	color: #7a7a7a;
+	text-shadow: #ffffff 0px 1px 0px;	
+}
+.postbox .inside h3 {
+	margin: 14px 0 10px 0;
+}
+
+
+/**
+ * Metabox Tabs
+ */
+
+/* chartswitch */
+#statchart-box h3 {
+	font-size: 12px;
+	line-height: 1em;
+	padding: 6px 10px;
+	margin: 0 0 10px 0;
+	color: #464646;
+	text-shadow: white 0px 1px 0px;
+
+	border-radius: 6px 6px 0 0;
+	-webkit-border-radius: 6px 6px 0 0;
+	-moz-border-radius: 6px 6px 0 0;
+
+		background: #dfdfdf url("images/gray-grad.png") repeat-x top left;
+	color: #464646;
+	
+}
+
+/* metaboxes */
+ul.metabox-tabs, ul#chartswitch {
+	margin-bottom: 5px;
+	padding: 0 10px 0 10px;
+	background: #e1e1e1;}
+ul.metabox-tabs {
+	margin-left: 0px;
+	margin-right: 0px;
+}
+#general ul.metabox-tabs {
+	margin-left: -10px;
+	margin-right: -10px;
+}
+ul.metabox-tabs, ul#chartswitch {
+	height: 24px;
+	margin-top: -10px !important;
+}
+ul.metabox-tabs li, ul#chartswitch li {
+	list-style: none;
+	display: inline;
+	font-size: 11px;
+}
+ul.metabox-tabs li.tab a, ul#chartswitch li a {
+	display: block;
+	float: left;
+	margin-right: 4px;
+
+	padding: 5px 6px;
+	filter:alpha(opacity=50);
+	opacity: .5;
+	-webkit-opacity: .5;
+	-moz-opacity: .5;
+	background: #fff;
+	color: #000;
+	color: #454545\9; /* IE8 and below */
+	border-radius: 2px 2px 0 0;
+	-webkit-border-radius: 2px 2px 0 0;
+	-moz-border-radius: 2px 2px 0 0;
+	font-weight: bold;
+	text-decoration: none;
+	zoom: 1;
+}
+ul.metabox-tabs li.tab a {
+	/* for some reason, opacity doesn't work in IE */
+	background: #f0f0f0\9;\9; /* IE8 and below */
+}
+}
+ul#chartswitch li.tab a {
+	/* for some reason, opacity doesn't work in IE */
+	background: #fcfcfc\9;\9; /* IE8 and below */
+}
+ul.metabox-tabs li.tab a.active,
+ul#chartswitch li a.active,
+ul.metabox-tabs li.tab a:hover,
+ul#chartswitch li a:hover {
+	background: #fff;
+	opacity: 1;
+	-webkit-opacity: 1;
+	-moz-opacity: 1;
+	filter:alpha(opacity=100);
+	color: #454545;
+}
+ul.metabox-tabs li.link {
+	margin-left: 4px;
+}
+ul.metabox-tabs li.link a {
+	text-decoration: none;
+}
+ul.metabox-tabs li.link a:hover {
+	text-decoration: underline;
+}
+
+/**
+ * Site Selector
+ */
+.selector {
+	position: absolute;
+	right: 20px;
+	margin: 25px 12px 0 0;
+	z-index: 5;
+}
+
+.selector h3 {
+	line-height: 24px;
+}
+
+.wrap h3#stats-blog {
+	float: left;
+	margin: 0 10px .83em 0;
+	font-size: 11px;
+	color: #000;
+}
+#statsdash {
+	font-size: 11px;
+	font-weight: normal;
+	color: #999;
+}
+
+
+/**
+ * "Big 4" Metaboxes
+ */
+
+#referrers .inside, 
+#postviews .inside,
+#searchterms .inside,
+#clicks .inside,
+#authorviews .inside,
+#videoplays .inside
+{
+	padding: 10px 0;
+}
+#videoplays div.summary {
+	margin: 0 10px;
+}
+
+#referrers p,  
+#postviews p, 
+#searchterms p, 
+#clicks p, 
+#authorviews p,
+#videoplays p
+{ 
+	font-size: 11px;
+	margin-left: 10px; 
+	margin-right: 10px; 
+}
+
+div.staticmetabox {
+	background-color: #fff;
+	margin-bottom: 11px;
+	padding-bottom: 5px;
+}
+
+.statsDay {
+	width: 100% !important;
+/*	border-collapse: collapse;*/
+}
+.statsDay td, .statsDay th {
+	height: 22px;
+	font-size: 11px;
+	padding: 0 10px;
+}
+td.views, .statsDay th.views {
+	text-align: right;
+}
+
+.statsDay tr.total td {
+	border-top: 1px solid #e5e5e5;
+}
+
+.statsDay th {
+	text-align: left;
+}
+
+.statsDay a {
+	text-decoration: none;
+}
+.statsDay a:hover {
+	text-decoration: underline;
+}
+.statsDay td.other {
+	font-weight: bold;
+}
+.statsDay .label .avatar {
+	width: 20px;
+	margin: 0 4px 0 0;
+	vertical-align: middle;
+}
+
+.togglenext {
+	cursor: default;
+}
+span.toggler {
+	padding: 3px 20px 2px 16px;
+	background: url('/i/stats/icon-expand-collapse.gif') no-repeat 3px -24px;
+}
+.togglenext.peekaboo span.toggler {
+	background: url('/i/stats/icon-expand-collapse.gif') no-repeat 3px 7px;
+}
+table.statsDay {
+	clear: both;
+}
+table.statsDay table {
+	margin-bottom: 11px;
+	width: 100%;
+	border-collapse: collapse;
+	table-layout:fixed;
+}
+tr.table td {padding:0;}
+
+table.statsDay table td.label {
+	padding-left: 50px !important;
+}
+table.statsDay table td.views {
+	text-align: right;
+	width: 69px;
+}
+table.statsDay td.label {
+	text-overflow: ellipsis;
+}
+
+tr.table td {
+	padding: 0;
+}
+
+#tooltip {
+	*width: 200px;
+}
+
+
+</style>
+<script type='text/javascript' src='http://s2.wp.com/wp-includes/js/l10n.js?ver=20101110'></script>
+<script type='text/javascript' src='http://s1.wp.com/wp-includes/js/jquery/jquery.js?ver=1.4.4'></script>
+<script type='text/javascript' src='http://s2.wp.com/wp-includes/js/hoverIntent.js?ver=20090102'></script>
+<script type='text/javascript' src='http://s0.wp.com/wp-admin/js/utils.js?ver=20101110'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var commonL10n = {
+	warnDelete: "You are about to permanently delete the selected items.\n  \'Cancel\' to stop, \'OK\' to delete."
+};
+try{convertEntities(commonL10n);}catch(e){};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://s0.wp.com/wp-admin/js/common.js?ver=20101211'></script>
+<script type='text/javascript' src='http://s1.wp.com/wp-includes/js/jquery/jquery.color.js?ver=2.0-4561m'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var thickboxL10n = {
+	next: "Next &gt;",
+	prev: "&lt; Prev",
+	image: "Image",
+	of: "of",
+	close: "Close",
+	noiframes: "This feature requires inline frames. You have iframes disabled or your browser does not support them."
+};
+try{convertEntities(thickboxL10n);}catch(e){};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://s2.wp.com/wp-includes/js/thickbox/thickbox.js?ver=3.1-20100407'></script>
+<script type='text/javascript' src='http://s1.wp.com/wp-admin/js/blog-switch.js?ver=2'></script>
+<script type='text/javascript' src='http://s1.wp.com/wp-content/mu-plugins/akismet-2.5/akismet.js?ver=MU'></script>
+<script type="text/javascript">
+<!--
+jQuery(document).ready(function() {
+	// tab between them
+	jQuery('.metabox-tabs li.tab a').each(function(i) {
+		var thisTab = jQuery(this).parent().attr('class').replace(/tab /, '');
+		if ( 'active' != jQuery(this).attr('class') )
+			jQuery('div.' + thisTab).hide();
+
+		jQuery(this).click(function(){
+
+			// hide all child content
+			jQuery(this).parent().parent().parent().children('div').hide();
+
+			// remove all active tabs
+			jQuery(this).parent().parent('ul').find('li a.active').removeClass('active');
+
+			// show selected content
+			jQuery(this).parent().parent().parent().find('div.'+thisTab).show();
+			jQuery(this).parent().parent().parent().find('li.'+thisTab+' a').addClass('active');
+		});
+	});
+
+	// grouping
+	jQuery('.togglenext').each(function (i) {
+		jQuery(this).click(function () {
+			jQuery(this).toggleClass('peekaboo').next().toggle();
+		});
+	});
+	
+});
+jQuery( function($) {
+	$( '#chartswitch li a' ).click( function() {
+		$( '#stat-chart-legend' ).html( '' );
+		$( '#stat-chart' ).html( '<img src="http://s2.wp.com/i/loading/fresh-64.gif" style="margin-top: 70px;" />' );
+		if ( 'stat-human' != this.id )
+			$( '#stat-chart').load( 'http://dashboard.wordpress.com/wp-includes/charts/flot-stats-data.php', {"page":"stats","blog":19308061,"num":30,"unit":this.id.substring( 5 )} );
+		$( '#chartswitch a' ).removeClass( 'active' );
+		$( '#' + this.id ).addClass( 'active' );
+		this.blur();
+		return false;
+	});
+} );
+-->
+</script>
+</head>
+<body>
+<div class="wrap">
+<div id="estats">
+Random hot post: <a target="top" href="http://theme.wordpress.com/2011/02/25/choco/">Choco</a>
+</div>
+<div class="selector">
+<h3 id="stats-blog">Indiesart Blog <span id="statsdash">(<a target='top' href='http://blog.indiesart.com/wp-admin/'>Dashboard</a>)</span></h3>
+</div>
+<div id="icon-stats" class="icon32"><br /></div>
+<h2>Stats</h2>
+
+<p><a href="index.php?page=estats&amp;blog=19308061">&laquo; Return to Stats</a></p>
+
+<h3>Saturday, February 26, 2011</h3>
+
+<h4><strong>Pageviews:</strong> 0</h4>
+
+<div id="referrers" class="statsdiv">
+<h3>Referrers</h3>
+<p>People clicked links from these pages to get to your site.</p>
+		<div class="staticmetabox">
+		<h4>Today</h4>
+					<p class="alternate">None</p>
+			</div>
+			</div>
+
+<div id="postviews" class="statsdiv">
+<h3>Top Posts &amp; Pages</h3>
+<p>These posts on your site got the most traffic.</p>
+		<div class="staticmetabox">
+		<h4>Today</h4>
+					<p class="alternate">None</p>
+			</div>
+			</div>
+
+<br style="clear:both" />
+
+<div id="searchterms" class="statsdiv">
+<h3>Search Engine Terms</h3>
+<p>These are terms people used to find your site.</p>
+		<div class="staticmetabox">
+		<h4>Today</h4>
+					<p class="alternate">None</p>
+			</div>
+			</div>
+
+<div id="clicks" class="statsdiv">
+<h3>Clicks</h3>
+<p>Your visitors clicked these links on your site.</p>
+		<div class="staticmetabox">
+		<h4>Today</h4>
+					<p class="alternate">None</p>
+			</div>
+			</div>
+
+<br style="clear:both;" />
+
+
+	<div class="stats-note">
+		<p>Just a note: we don't count your own visits to your site.</p>
+		<p>Generated 2011-02-26 16:00:05 UTC-5</p>
+	</div>
+</div>
+
+	<div class="wrap">
+	<h2>Stats Access</h2>
+	<h3>Add a User</h3>
+	<form id="statsadduser" method="post" action="">
+		<p>Type the e-mail address of another WordPress.com user to grant them access to see your site stats.</p>
+		<input type="hidden" name="action" value="adduser" />
+		<input type="hidden" name="blog_id" value="19308061" />
+		<input type="hidden" id="_wpnonce" name="_wpnonce" value="5591154aa4" /><input type="hidden" name="_wp_http_referer" value="/wp-admin/index.php?page=estats&amp;blog=19308061&amp;day=2011-02-26" />		<label for="user_email">Email address: <input style="font-size: 16px;" type="text" name="user_email" id="user_email" value="" /> <input type="submit" class="button" value="Add &#187;" /></label>
+	</form>
+	</div>

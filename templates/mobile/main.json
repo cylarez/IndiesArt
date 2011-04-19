@@ -1,0 +1,5 @@
+{
+    "artists":{{ artists|safe }},
+    "submissions": {{ submissions|safe }},
+    "slides": {{ slides|safe }}
+}

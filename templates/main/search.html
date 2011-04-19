@@ -1,0 +1,44 @@
+{% extends "indiesart.html" %}
+
+{% block title %} Artists {{ page }} {% endblock %}
+
+{% block content %}
+
+<h1>Artists</h1>
+
+{{ pager }}
+
+<table id="artists">
+
+{% for artist in artists %}
+	{% cycle '<tr>' '' %}
+	<td class="row-list" style="{% cycle '' '' %}">
+		<h2><a href="{{ artist.url }}">{{ artist }}</a></h2>
+		<ul style="margin:0 0 10px 0;">
+			{% for collection in artist.collections %}
+				<li>
+					<a class="list" href="{{ collection.url }}">{{ collection }}</a>
+					<i>{{ collection.images|length }} images</i>
+					{% if forloop.revcounter0 %} - {% endif %}
+				</li>
+			{% endfor %}
+		</ul>
+		{% for image in artist.images %}
+
+			<a rel="group-{{ artist.pk }}" class="fancybox cadre-image thumbs-medium-2" href="{{ image.photo.url }}" title="{% include "main/image_info.html" %}">
+				<img width="99" title="{{ image }}" src="{{ image.photo.url_200x200 }}" class="piece image" alt="{{ image }}" />
+			</a>
+
+		{% endfor %}
+		<div class="clear"></div>
+		<a href="{{ artist.url }}">Profile page</a>
+	</td>
+	{% cycle '' '</tr>' %}
+{% endfor %}
+
+</table>
+
+{{ pager }}
+
+
+{% endblock %}

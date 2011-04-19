@@ -1,0 +1,6 @@
+<div class="pager">
+	<h2>{{ page }}</h2>
+	{% if page.has_previous %}<a class="button classy" href="/artists/page-{{ page.previous_page_number }}">Previous</a>{% endif %}
+	{% if page.has_next %}<a class="button classy" href="/artists/page-{{ page.next_page_number }}">Next</a>{% endif %}
+	<div class="clear"></div>
+</div>

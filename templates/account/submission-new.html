@@ -1,0 +1,142 @@
+{% extends "indiesart.html" %}
+
+{% load helpers %}
+{% block description %}Submit your art to be published at indiesArt.com{% endblock %}
+{% block keywords %}submission,commission,contest{% endblock %}
+{% block title %} Submission{% endblock %}
+
+{% block head %}
+
+<script type="text/javascript" src="/assets/js/jqtransformplugin/jquery.jqtransform.js"></script>
+<link rel="stylesheet"type="text/css" href="/assets/js/jqtransformplugin/jqtransform.css" media="screen" />
+<script type="text/javascript" src="/assets/js/jquery.MultiFile.pack.js"></script>
+<script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.min.js"></script>
+
+<script type="text/javascript" src="/assets/js/tipsy/jquery.tipsy.js"></script>
+<link rel="stylesheet"type="text/css" href="/assets/js/tipsy/tipsy.css" media="screen" />
+
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+	$.fn.tipsy.defaults.opacity = 0.7;
+	$("form.jqtransform").jqTransform();
+	$('#step').validate();
+	$('#step input').tipsy({trigger: 'focus', gravity: 'w', html: true});
+	setTimeout(function() {
+		$('#step').animate({opacity:1})
+	}, 300);
+});
+
+</script>
+
+{% endblock %}
+
+{% block content %}
+
+<h1>Submission</h1>
+
+<form id="step" enctype="multipart/form-data" action="/account/submission/new" method="post" class="jqtransform">
+	<div class="round" style="margin-bottom:30px">
+		<h2 class="with-icon step-info">Information</h2>
+		<div style="padding-left:62px">
+			<p>Here is the Submission Process! Fill out your profile information, give a name for the submitted gallery and choose the image files.</p>
+			<p>After that we will received your submission and if the information seems correct you will be published in the <a href="/account/submission/list">Submissions List</a>.</p>
+			<br/>
+			<p>Then you will receive a unique address which you could share with your fiends and fans.</p>
+			<p>We will publish your profile in the <a href="/artists/page-1">Main Gallery</a> regarding the quality of your works and how many Facebook Likes you will get.</p>
+			<br/>
+			<p>So do not hesitate to share your submission to all your contacts!</p>
+		</div>
+	</div>
+	
+	<div class="step-panel round" style="margin-right: 15px;">
+		<h2 class="with-icon step-1">Fill out the form</h2>
+		
+		<div style="float:left">
+			<div class="rowElem">
+				<label>Lastname <span class="red">*</span></label>
+				<input title="Enter your lastname" type="text" name="lastname" class="required" />
+			</div>
+			<div class="rowElem">
+				<label>Email <span class="red">*</span></label>
+				<input title="Enter your email address" class="email required" type="text" name="email" />
+			</div>
+
+			<div class="rowElem">
+				<label>Website</label>
+				<input title="Enter your official website address<br/>Ex.: http://mywebsite.com" class="url" type="text" name="url" />
+			</div>
+			
+			<div class="rowElem">
+				<label>Blog</label>
+				<input title="Enter your blog address<br/>Ex.: http://www.yourblog.com" class="url" type="text" name="url" />
+			</div>
+		</div>
+		
+		<div style="float:left;padding-left:10px">
+			<div class="rowElem">
+				<label>Firstname <span class="red">*</span></label>
+				<input title="Enter your firstname" class="required" type="text" name="firstname" />
+			</div>
+			
+			<div class="rowElem">
+				<label>Category <span class="red">*</span></label>
+				<select name="category_id">
+					{% for c in category %}
+					<option value="{{ c.id }}">{{ c }}</option>
+					{% endfor %}
+				</select>
+			</div>
+
+			<div class="rowElem">
+				<label>Facebook</label>
+				<input title="Enter your Facebook Page or Profile<br/>Ex.: http://www.facebook.com/your-page" class="url" type="text" name="url" />
+			</div>
+			
+			<div class="rowElem">
+				<label>Twitter</label>
+				<input title="Enter your Twitter Profile Url<br/>Ex.: http://www.twitter.com/username" class="url" type="text" name="url" />
+			</div>
+
+		</div>
+		
+		<div class="rowElem" style="padding-top:10px">
+			<label>Biography</label>
+			<textarea rows="5" cols="48" name="bio"></textarea>
+		</div>
+		
+	</div>
+	<div class="step-panel round">
+	
+		<h2 class="with-icon step-2">Choose your images</h2>
+		
+		<div class="rowElem">
+			<label>Gallery <span class="red">*</span></label>
+			<input title="Enter the name of this image collection<br/>Ex.: Paintings, Drawings, ..." class="required" type="text" name="collection" />
+		</div>
+		
+		<div class="clear"></div>
+		
+		<input class="file multi" id="file_upload" name="file_upload" accept="gif|jpg|png|jpeg" type="file" />
+	</div>
+	
+	<div class="clear"></div>
+	
+	<div class="step-panel round" style="margin-right:15px;height:90px;">
+		<h2 class="with-icon step-3">Send your submission</h2>
+		<div class="rowElem" style="padding-left:70px">
+			<input type="submit" value="Submit All" />
+		</div>
+	</div>
+	
+	<div class="step-panel round" style="height:90px;">
+		<h2 class="with-icon step-4">Wait to being approved!</h2>
+		<p style="padding-left:62px">Now we will check your submission and see if all is fine!</p>
+	</div>
+	
+	<div class="clear"></div>
+	
+</form>
+
+{% endblock %}

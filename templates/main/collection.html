@@ -1,0 +1,26 @@
+{% extends "indiesart.html" %}
+
+{% load helpers %}
+{% block description %}{{ collection }} is a gallery of images created by {{ artist }}. {{ page }} {{ artist.bio|truncatewords:20 }}{% endblock %}
+{% block keywords %}{{ artist.keywords }},{{ collection}},{{ collection.art_type|clean_keywords }}{% endblock %}
+
+{% block title %} - {{ artist }} - {{ collection }} - {{ page }}{% endblock %}
+
+{% block content %}
+
+	<h1><a href="{{ artist.url }}">{{ artist }}<span class="link-info"><< Back to artist's profile</span></a></h1>
+	
+	{{ pager }}
+	
+	{% for image in images %}
+		{% include "main/image_medium_info.html" %}
+	{% endfor %}
+	<div class="clear"></div>
+
+	<br />
+	
+	{{ pager }}
+	
+	{% include "fb-ads.html" %}
+	
+{% endblock %}

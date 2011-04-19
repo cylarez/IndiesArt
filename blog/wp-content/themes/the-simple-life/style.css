@@ -1,0 +1,135 @@
+/* search form */
+
+#searchform {
+	display: inline;
+	float: right;
+}
+
+#searchform div {
+	padding: 15px 0;
+}
+
+#searchform label {
+	background: transparent;
+	font-size: 78%;
+}
+
+/* description */
+
+p.descript {
+	margin: 0;
+	padding-left: 30px;
+}
+/* information area */
+
+#info {
+	padding-left: 25px;
+	border-top: 1px dotted silver;
+}
+
+/* navigation area */
+
+#nav {
+	padding-top:20px;
+	padding-left: 20px;
+}
+#nav ul {
+	padding: 0 15px 0 25px;
+}
+#nav h4 {
+	padding: 10px 15px 0;
+}
+
+/* about me area */
+
+#about {
+	padding: 20px 15px 0 15px;
+}
+#about p {
+	text-align: justify;
+	padding-left: 10px;
+}
+/* comment form */
+
+.post {
+	padding: 10px 0px;
+}
+
+.post .head-title {
+	width: 534px;
+}
+
+.post .head-title p {
+	margin: 0;
+}
+
+.post h2 {
+	padding: 0;
+	margin-bottom: 7px;
+	font-size: 18px;
+	padding-top: 2px;
+	font-weight: lighter !important;
+	line-height: 22px;
+}
+
+#commentform label {
+	display: block;
+}
+/* post titles */
+
+.storycontent {
+	padding: 10px 0;
+	padding-top: 35px;
+}
+
+.feedback {
+	clear: both;
+	padding-top: 15px;
+}
+
+/* link list at bottom of sidebar */
+
+#meta {
+	clear: both;
+}
+
+#commentlist {
+	padding: 0 10px 10px 35px;
+}
+
+#postcomment {
+	padding-top: 20px;
+}
+
+#commentform {
+	padding: 15px;
+}
+
+.alignright {
+	float:right;
+}
+
+.alignleft {
+	float:left;
+}
+
+.storycontent .thumbs-medium {
+	margin: 0 18px 18px 0;
+}
+
+.post-thumbs {
+	padding-top: 15px;
+}
+
+.linkcat {
+	list-style: none;
+}
+
+.share-box {
+	
+}
+
+.share-box div {
+	float: left;
+	width: 150px;
+}

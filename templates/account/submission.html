@@ -1,0 +1,47 @@
+{% extends "indiesart.html" %}
+
+{% load helpers %}
+{% block description %}Submission from {{ artist }}. {{ artist.bio|striptags|truncatewords:30 }}{% endblock %}
+{% block keywords %}submission,{{ artist.keywords }},{{ artist.art_types.all|join:","|clean_keywords }}{% endblock %}
+
+{% block title %} - Submission - {{ artist }}{% endblock %}
+
+{% block content %}
+	<h1>{{ artist }}</h1>
+	<a href="/account/submission/list"><span class="link-info"><< Back to Submission List</span></a>
+	
+	<div class="round" style="margin:20px 0">
+		<h2 class="with-icon step-info">Information</h2>
+		<div style="padding-left:62px">
+			<p>This is a submission profile.</p>
+			<p>Help this artist to be published in the indiesArt database!</p>
+			<p>Just use Facebook and Twitter buttons to show that you like his work.</p>
+			
+			<div style="padding:10px 5px">
+				<div class=" left" >
+					<a href="http://twitter.com/share" data-text="I promote {{ artist }} in the indiesArt submission process!" class="twitter-share-button" data-count="horizontal" data-via="indiesart">Tweet</a>
+				</div>
+				<div class="left">
+					<fb:like style="width:110px" layout="button_count"></fb:like>
+				</div>
+				<div class="clear"></div>
+			</div>
+			
+		</div>
+	</div>
+	
+	<h2>Presentation</h2>
+	<p>{{ artist.bio|safe|linebreaksbr }}</p>
+
+	<h2>Gallery</h2>
+	{% for image in artist.images %}
+		{% include "account/image.html" %}
+	{% endfor %}
+	<div class="clear"></div>
+	
+	<br />
+	
+	{% include "fb-ads.html" %}
+	
+	
+{% endblock %}

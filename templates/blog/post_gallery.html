@@ -1,0 +1,22 @@
+<p class="artist-bio">
+	{{ artist.bio|striptags }}
+</p>
+<p class="artist-sites">
+	<a href="{{ url }}{{ artist.url }}">Profile page</a>
+</p>
+
+<div class="post-focused">
+{% for image in collection.focused %}
+	<a class="cadre-image" href="{{ url }}{{ image.url }}"><img {% if image.resize %} width="620" {% endif %} class="piece image" src="{{ image.main_url }}" title="{{ artist }} {{ collection }} {{ image.name }}" alt="{{ image.name }}" /></a>
+	<p class="inter-image">{{ image.name }}</p>
+{% endfor %}
+</div>
+
+<h3><a href="{{ url }}{{ collection.url }}">{{ artist.name }} - {{ collection.name }} ({{ collection.images|length }} images)<span class="link-info">&raquo;View The Gallery</span></a></h3>
+
+<div class="post-thumbs clear">
+	{% for image in images %}
+	<a class="cadre-image thumbs-medium-2" href="{{ url }}{{ image.url }}"><img width="99" class="piece image" src="{{ image.photo.url_200x200 }}" title="{{ artist }} {{ collection }} {{ image.name }}" alt="{{ image.name }}" /></a>
+	{% endfor %}
+	<div class="clear"></div>
+</div>

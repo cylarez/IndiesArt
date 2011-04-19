@@ -1,0 +1,8 @@
+<div class="pager collection">
+	<h2>{{ collection }} {{ page }}</h2>
+
+	{% if page.has_previous %}<a class="button classy" href="{{ collection.url }}/page-{{ page.previous_page_number }}">Previous</a>{% endif %}
+
+	{% if page.has_next %}<a class="button classy" href="{{ collection.url }}/page-{{ page.next_page_number }}">Next</a>{% endif %}
+	<div class="clear"></div>
+</div>

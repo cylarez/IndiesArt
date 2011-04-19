@@ -1,0 +1,49 @@
+{% extends "indiesart.html" %}
+
+{% load helpers %}
+{% block description %}{{ image }} by {{ artist }} in {{ collection}}{% endblock %}
+{% block keywords %}{{ artist.keywords }},{{ collection}},{{ collection.art_type|clean_keywords }},{{ image }}{% endblock %}
+{% block title %} - {{ artist }} - {{ collection }} - {{ image }}{% endblock %}
+
+{% block head %}
+<meta property="og:image" content="{{ image.main_url }}"/>
+{% endblock %}
+
+{% block content %}
+
+<h1><a href="{{ artist.url }}">{{ artist }}<span class="link-info"><< Back to artist's profile</span></a></h1>
+
+
+<div style="width:684px;float:left;"> 
+
+	<div style="float:left;padding:10px 20px 0 0">
+	
+		<h3>{{ image }}</h3>
+
+	</div>
+	<div style="float:left;height:20px;padding-top:5px;">
+		<fb:like layout="button_count"></fb:like>
+	</div>
+	<div class="clear"></div>
+	
+	<img style="margin-top:10px;" {% if resize %} width="670" {% endif %} src="{{ image.main_url }}" class="piece image" alt="{{ image }}" title="{{ image }}" />
+
+
+</div>
+
+<div style="float:left;width:260px;">
+	<h2><a href="{{ collection.url }}">{{ collection }}<span class="link-info"><< Back to gallery</span></a></h2>
+	{% for image in collection.images %}
+		<a style="margin:0 5px 5px 0;{% cycle 'clear:both;' '' %}" class="cadre-image" href="{{ image.url }}">
+			<img style="width:117px;" src="{{ image.photo.url_200x200 }}" class="piece image" alt="{{ image.name }}" title="{{ image.name }}" />
+		</a>
+	{% endfor %}
+	<div class="clear"></div>
+</div>
+
+<div class="clear"></div>
+
+{% include "fb-ads.html" %}
+
+
+{% endblock %}

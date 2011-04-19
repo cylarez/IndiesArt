@@ -1,0 +1,157 @@
+{% extends "indiesart.html" %}
+
+{% block head %}
+<script type="text/javascript" src="/assets/js/swfobject/swfobject.js"></script>
+<script src="http://widgets.twimg.com/j/2/widget.js"></script>
+
+
+<link rel="stylesheet" type="text/css" href="/assets/style/advanced-slider.css" media="screen" />
+<script src="/assets/js/jquery.advancedSlider.min.js"></script>
+
+<script type="text/javascript">
+
+	$(document).ready(function() { 
+        $('.slider').each(function() {
+        	$('#'+ this.id).bxSlider({
+	            mode: 'fade',
+	            captions: true,
+	            auto: true,
+	            controls: false,
+        	});
+        });
+
+		$('#slider').advancedSlider({width:625, height:350, hideTimer:false, slideProperties:{
+			0:{effectType:'scale', horizontalSlices:'10', verticalSlices:'5', sliceDuration:'800'},
+			1:{effectType:'slide', horizontalSlices:'6', verticalSlices:'3', slicePattern:'topLeftToBottomRight', 
+			   slideStartPosition:'rightBottom', slideStartRatio:'0.5', sliceDuration:'700'},
+		}});
+		
+		$('.thumbs').mouseenter(function() {
+	        $(this).find('img').animate({'width': '+=5', 'height': '+=5'}, 'fast');
+	    }).mouseleave(function() {
+	        $(this).find('img').animate({'width': '-=5', 'height': '-=5'}, 'fast');
+	    });	
+		
+	});
+
+</script>
+
+
+{% endblock %}
+
+{% block content %}
+
+<div class="panel-left">
+	<h2>main current artists</h2>
+	
+	<div id="slider">
+      
+		{% for artist in homeArtists %}
+		<div style="display:none">
+			<img src="{{ artist.image.home_file_name }}" alt="{{ image }}"/>
+			<img class="thumbnail" src="{{ artist.image.photo.url_200x200 }}"/>
+			<div class="caption"><a style="font-size:14px" href="{{ artist.url }}">{{ artist }} >></a><br/> {{ artist.bio|safe|truncatewords_html:35 }}</div>
+		</div>
+		{% endfor %}
+
+    </div>
+
+	<h2>last artists</h2>
+	{% for collection in lastCollection %}
+		<div class="last-post">
+
+			<a class="cadre-image" style="margin: 0 10px 10px 0;height:200px;width:200px;" href="{{ url }}{{ collection.artist.url }}">
+				<ul class="slider" id="slider_{{ collection.id }}" style="height:200px;width:200px;">
+				{% for image in collection.homeImages %}
+					<li><img src="{{ url }}{{ image.photo.url_200x200 }}" alt="" /></li>
+				{% endfor %}
+				</ul>
+			</a>
+			
+			<h3><a href="{{ url }}{{ collection.url }}">{{ collection.artist.name }} - {{ collection.name }} ({{ collection.images|length }} images)<span class="link-info">&raquo;View The Gallery</span></a></h3>
+			
+			<p class="artist-bio">
+				{{ collection.artist.bio|safe|truncatewords_html:93 }}
+			</p>
+			<p class="artist-sites">
+				<a href="{{ url }}{{ collection.artist.url }}">Profile page</a>
+			</p>
+			
+			<div class="post-thumbs clear">
+				{% for image in collection.homeImages %}
+				<a class="cadre-image thumbs" href="{{ url }}{{ image.url }}"><img width="50" class="piece image" src="{{ url }}{{ image.photo.url_200x200 }}" alt="" /></a>
+				{% endfor %}
+				<div class="clear"></div>
+			</div>
+		</div>
+
+	{% endfor %}
+	
+	<div class="main-link">
+		<a href="/artists/page-1">View The Other Artists! &raquo;</a>
+	</div>
+	
+</div>
+
+<div id="sidebar">
+	
+	<h2>random artists</h2>
+	<ul style="margin:5px 0 5px 0">
+	{% for artist in artists %}
+	    <li>
+	    	<a href="{{ artist.url }}">{{ artist }}</a><br />
+	    	{% for image in artist.images|slice:"4" %}
+	    	<span>
+	    		<a class="cadre-image thumbs" href="{{ image.url }}"><img src="{{ image.photo.url_50x50 }}" class="piece image" alt="" /></a>
+	    	</span>
+	    	{% endfor %}
+	    	<div class="clear"></div>
+	    </li>
+	{% endfor %}
+	</ul>
+	
+	{% include "ads.html" %}
+	
+	<h2>Facebook Network</h2>
+	
+	<fb:like-box href="http://www.facebook.com/pages/Indiesart/113879095324838" width="270" height="360" connections="12" show_faces="true" stream="false" header="true"></fb:like-box>
+	<br /><br />
+	
+	<form action="https://www.paypal.com/cgi-bin/webscr" method="post" style="text-align:center;margin: 20px 0;">
+		<input type="hidden" name="cmd" value="_s-xclick">
+		<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----">
+		<input type="image" src="/assets/style/images/beer.png" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+		<img alt="" border="0" src="https://www.paypal.com/fr_FR/i/scr/pixel.gif" width="1" height="1">
+	</form>
+
+</div>
+
+<div class="clear"></div>
+
+{% endblock %}
+
+{% block sub_content %}
+	<h2>last entries</h2>
+	{% for image in lastImages %}
+	<a style="margin:0 10px 10px 0" class="cadre-image thumbs-medium-2" href="{{ image.url }}">
+		<img width="99" src="{{ image.photo.url_200x200 }}" class="piece image" alt="{{ image }}" title="{{ image }}" />
+	</a>
+	{% endfor %}
+	<div class="clear"></div>
+	<div style="margin:30px 0 20px 0" class="hr"></div>
+	
+	<h2>random images</h2>
+	{% for image in randomImages %}
+	<a style="margin:0 10px 10px 0" class="cadre-image thumbs-medium-2" href="{{ image.url }}">
+		<img width="99" src="{{ image.photo.url_200x200 }}" class="piece image" alt="{{ image }}" title="{{ image }}" />
+	</a>
+	{% endfor %}
+	<div class="clear"></div>
+	
+	<div class="main-link">
+		<a href="/random">Discover More Images! &raquo;</a>
+	</div>
+	
+	<div style="margin:30px 0 20px 0" class="hr"></div>
+	
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "indiesart.html" %}
+
+{% load helpers %}
+{% block description %}The list of all submissions posted in indiesArt.com. Submit your art to be published at indiesArt.com{% endblock %}
+{% block keywords %}submission,commission,contest{% endblock %}
+{% block title %} Submission List{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block content %}
+
+<h1>Submissions List</h1>
+
+<div class="round" style="margin-bottom:30px">
+	<h2 class="with-icon step-info">Information</h2>
+	<div style="padding-left:62px">
+		<p>Here is the Submissions List!</p>
+		<p>Following artists used the <a href="/account/submission/new">Submission Process</a>.</p>
+		<p>They have been pre-approved so now that's up to you to help them to be published into indiesArt database.</p>
+		<p>The submission will be approved regarding the Facebook likes and tweets.</p>
+		<p>So go ahead and use the Facebook and Twitter buttons for the submissions that you like!</p>
+	</div>
+</div>
+
+{% if images|length %}
+
+{% for image in images %}
+	<div style="float:left">
+		{% include "main/image_medium_info.html" %}
+	<br/>
+	<a href="{{ image.collection.artist.url }}">{{ image.collection.artist }}<span class="link-info">>> See the submission</span></a>
+	</div>
+{% endfor %}
+
+
+{% for image in collection.images %}
+	
+{% endfor %}
+
+{% else %}
+
+There is currently any submissions.
+
+{% endif %}
+
+<div class="clear"></div>
+
+
+{% endblock %}
