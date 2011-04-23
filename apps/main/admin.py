@@ -21,7 +21,9 @@ admin.site.register(UrlType)
 
 
 class ImageAdmin(admin.ModelAdmin):
-	list_display = ('name',)
+	list_display = ('name', 'thumb_admin')
+	fields = ('thumb_admin', 'name', 'focused',)
+	readonly_fields = ('thumb_admin',)
 
 admin.site.register(Image, ImageAdmin)
 
@@ -53,10 +55,13 @@ class ArtistAdmin(admin.ModelAdmin):
 	
 admin.site.register(Artist, ArtistAdmin)
 
+
 # Collection
 class ImageInline(admin.TabularInline):
-	model = Piece
-	extra = 1
+    model = Image
+    extra = 1
+    fields = ImageAdmin.fields
+    readonly_fields = ImageAdmin.readonly_fields
 	
 # Import Image Action
 def import_images(self, request, queryset):

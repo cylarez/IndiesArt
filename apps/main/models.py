@@ -156,6 +156,9 @@ class Image(Piece):
         return settings.MEDIA_URL + self.photo.name
     def toJson(self):
         return {'name': self.name, 'url':self.main_url(), 'url_200x200': self.photo.url_200x200}
+    def thumb_admin(self):
+        return '<img src="%s" width="100" alt="thumb" />' % (self.photo.url_200x200,)
+    thumb_admin.allow_tags = True
 
 class User(DjangoUser):
 	favoris = models.ManyToManyField(Collection, blank=True, related_name='Favoris')
