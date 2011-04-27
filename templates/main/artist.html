@@ -7,14 +7,20 @@
 {% block title %} - {{ artist }}{% if isCollection %} - {{ artist.collections|first }}{% endif %}{% endblock %}
 
 {% block content %}
-	<h1>{{ artist }}</h1>
+	<h1 style="float:left;">{{ artist }}</h1>
 	
-	<div>
+	<div style="float:left;height:20px;padding-left:20px;padding-top:5px;">
+		<fb:like layout="button_count"></fb:like>
+	</div>
+	
+	<div style="clear:both">
 	
 		<h2>Presentation</h2>
 		<p>{{ artist.bio|safe|linebreaksbr }}</p>
 	
 	</div>
+	
+
 	
 	<div style="clear:both;margin:20px 0;width:33%;float:left;">
 	
