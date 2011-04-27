@@ -12,13 +12,18 @@
 
 {% for artist in artists %}
 	{% cycle '<tr>' '' %}
-	<td class="row-list" style="{% cycle '' '' %}">
-		<h2 style="float:left;">
+	<td class="row-list" style="{% cycle '' 'padding-left: 30px;' %}">
+		<h2>
             <a href="{{ artist.url }}">{{ artist }}</a>
         </h2>
         
-        <div style="float:left;height:20px;padding-left:20px;padding-top:8px;">
-            <fb:like layout="button_count" href="http://www.indiesart.com{{ artist.url }}"></fb:like>
+        <div style="height:25px;padding-bottom: 15px;">
+            <div style="float:left;">
+                <a href="http://twitter.com/share" data-url="http://www.indiesart.com{{ artist.url }}" data-text="{{ artist }}" class="twitter-share-button" data-count="horizontal" data-via="indiesart">Tweet</a>
+            </div>
+            <div style="float:left;">
+                <fb:like layout="button_count" href="http://www.indiesart.com{{ artist.url }}"></fb:like>
+            </div>
         </div>
         
 		<ul style="margin:0 0 10px 0;clear:both;">
@@ -38,7 +43,7 @@
 
 		{% endfor %}
 		<div class="clear"></div>
-		<a href="{{ artist.url }}">Profile page</a>
+		<a class="button classy" href="{{ artist.url }}" style="margin-top:15px;margin-left:5px">Profile page</a>
 	</td>
 	{% cycle '' '</tr>' %}
 {% endfor %}
