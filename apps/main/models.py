@@ -89,7 +89,7 @@ class Artist(DefaultModel):
         artist = {'id': self.pk, 'name': self.name(), 'firstname': self.firstname, 'submission': self.submission}
         
         if image :
-            artist['image'] = image.photo.url_50x50
+            artist['image'] = image.photo.url_50x50.replace(' ', '%20')
         else :
             artist['images'] = self.images(False, True)
         return artist
@@ -155,7 +155,7 @@ class Image(Piece):
     def main_url(self):
         return settings.MEDIA_URL + self.photo.name
     def toJson(self):
-        return {'name': self.name, 'url':self.main_url(), 'url_200x200': self.photo.url_200x200}
+        return {'name': self.name, 'url':self.main_url().replace(' ', '%20'), 'url_200x200': self.photo.url_200x200.replace(' ', '%20')}
     def thumb_admin(self):
         return '<img src="%s" width="100" alt="thumb" />' % (self.photo.url_200x200,)
     thumb_admin.allow_tags = True

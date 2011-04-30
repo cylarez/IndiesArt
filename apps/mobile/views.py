@@ -7,30 +7,11 @@ from django.template import Context, Template
 import json
 
 def main(request):
-    slides = []
-    submissions = []
-    
-    for artist in getHomeArtists() :
-        slides.append(artist.image.home_file_name())
-    
-    artists = []
-    for artist in Artist.objects.filter(active=1):
-        collections = artist.collections()
-        a = artist.toJson( collections[len(collections)-1].focused()[0])
-        if artist.submission :
-            submissions.append(a)
-        else :
-            artists.append(a)
-    
-    
+
     t = loader.get_template('mobile/main.json')
-    c = Context({
-                'artists': json.dumps(artists, indent=4),
-                'slides': json.dumps(slides, indent=4),
-                'submissions': json.dumps(submissions, indent=4)
-                })
+
     
-    return HttpResponse(t.render(c), mimetype='text/javascript')
+    return HttpResponse(t.render(Context({})), mimetype='text/javascript')
 
 def artist(request, artist_id):
     
