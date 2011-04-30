@@ -12,9 +12,14 @@
 
 {% for artist in artists %}
 	{% cycle '<tr>' '' %}
-	<td class="row-list" style="{% cycle '' '' %}">
-		<h2><a href="{{ artist.url }}">{{ artist }}</a></h2>
-		<ul style="margin:0 0 10px 0;">
+	<td class="row-list" style="{% cycle '' 'padding-left: 30px;' %}">
+		<h2>
+            <a href="{{ artist.url }}">{{ artist }}</a>
+        </h2>
+        
+        {% include "main/artist_share.html" %}
+        
+		<ul style="margin:0 0 10px 0;clear:both;">
 			{% for collection in artist.collections %}
 				<li>
 					<a class="list" href="{{ collection.url }}">{{ collection }}</a>
@@ -31,7 +36,7 @@
 
 		{% endfor %}
 		<div class="clear"></div>
-		<a href="{{ artist.url }}">Profile page</a>
+		<a class="button classy" href="{{ artist.url }}" style="margin-top:15px;margin-left:5px">Profile page</a>
 	</td>
 	{% cycle '' '</tr>' %}
 {% endfor %}
@@ -40,5 +45,6 @@
 
 {{ pager }}
 
+{% include "fb-ads.html" %}
 
 {% endblock %}

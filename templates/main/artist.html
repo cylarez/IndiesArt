@@ -7,15 +7,18 @@
 {% block title %} - {{ artist }}{% if isCollection %} - {{ artist.collections|first }}{% endif %}{% endblock %}
 
 {% block content %}
+	
 	<h1>{{ artist }}</h1>
 	
-	<div>
+	{% include "main/artist_share.html" %}
+	
+	<div style="clear:both">
 	
 		<h2>Presentation</h2>
 		<p>{{ artist.bio|safe|linebreaksbr }}</p>
 	
 	</div>
-	
+
 	<div style="clear:both;margin:20px 0;width:33%;float:left;">
 	
 		<h2>Galleries</h2>

@@ -1,2 +1,7 @@
 *.pyc
 .DS_Store
+apache/apache.wsgi
+assets/image/
+blog/wp-config-local.php
+settings_local.py
+
