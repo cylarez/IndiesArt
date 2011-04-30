@@ -119,8 +119,8 @@ class Collection(DefaultModel):
     
     def focused(self):
         images = Image.objects.filter(collection=self.pk, focused=1)
-        #for i in images :
-        #i.resize = (i.photo.width > 620)
+        for i in images :
+            i.resize = (i.photo.width > 620)
         if (len(images) < 1) :
             images = Image.objects.filter(collection=self.pk)[:1]
         
@@ -157,7 +157,7 @@ class Image(Piece):
     def toJson(self):
         return {'name': self.name, 'url':self.main_url(), 'url_200x200': self.photo.url_200x200}
     def thumb_admin(self):
-        return '<img src="%s" width="100" alt="thumb" />' % (self.photo.url_200x200,)
+        return '<img src="%s" alt="thumb" />' % (self.photo.url_200x200,)
     thumb_admin.allow_tags = True
 
 class User(DjangoUser):
