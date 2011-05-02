@@ -69,17 +69,19 @@ class Artist(DefaultModel):
             c.images()
             self.collections.append(c)
         return self.collections
+        
     def images(self, sample, toJson = False):
         self.images = []
-        for collection in self.collections() :
-            for image in collection.images :
-                if toJson :
-                    image = image.toJson()
-                self.images.append(image)
-        if sample == False or len(self.images) < sample :
-            sample = len(self.images)
-        self.images = self.images[:sample]
+        images = Image.objects.filter(collection__artist=self.pk).order_by('-focused', '-id')
+        if toJson :
+            for image in images :
+                image = image.toJson()  
+        if sample == False or len(images) < sample :
+            sample = len(images)  
+        self.images = images[:sample]
+        
         return self.images
+        
     def keywords(self):
         if self.lastname :
             return '%s,%s,%s' % (self.name(), self.firstname, self.lastname)
