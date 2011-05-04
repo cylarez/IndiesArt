@@ -48,14 +48,15 @@ class ArtType(DefaultModel):
 		db_table = u'main_art_type'
 
 class Artist(DefaultModel):
+    submission = models.BooleanField(default=0)
+    approved = models.BooleanField(default=0)
     lastname = models.CharField(max_length=150, verbose_name=_("Lastname"), blank=True)
     firstname =  models.CharField(max_length=150, verbose_name=_("Firstname"))
+    email = models.CharField(max_length=150, verbose_name=_("Email"))
     art_types = models.ManyToManyField(ArtType)
     bio = models.TextField(verbose_name=_("Biography"))
     bio_fr = models.TextField(verbose_name=_("Biography Fr"), blank=True)
-    email = models.CharField(max_length=150, verbose_name=_("Email"))
-    submission = models.BooleanField(default=0)
-    approved = models.BooleanField(default=0)
+
     def urls(self):
         self.urls = Url.objects.filter(artist=self.pk)
         return self.urls

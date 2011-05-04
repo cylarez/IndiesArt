@@ -80,7 +80,7 @@ class ArtistAdmin(admin.ModelAdmin):
     actions = [approve, publish]
     inlines = (CollectionInline, UrlInline)
     list_filter = ('submission', 'active')
-    search_fields = ['firstname', 'lastname']
+    search_fields = ['firstname', 'lastname']    
     def save_model(self, request, obj, form, change):
         launch_approve = False
         launch_publish = False
