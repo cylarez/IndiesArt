@@ -143,13 +143,16 @@ class Collection(DefaultModel):
                 ping_google('/sitemap.xml')
             except Exception:
                 pass
-    def image_sample(self):
-        images = self.focused()
+    def thumb_admin(self):
+        if self.artist.submission :
+            images = self.images()
+        else :
+            images = self.focused()
         retain = ''
         for i in images :
             retain += i.thumb_admin()
         return retain
-    image_sample.allow_tags = True
+    thumb_admin.allow_tags = True
 
 class Piece(DefaultModel):
     name = models.CharField(max_length=255, blank=True, verbose_name=_("Piece Title"))

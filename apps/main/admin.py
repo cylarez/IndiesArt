@@ -73,8 +73,8 @@ def publish(self, request, queryset):
 class CollectionInline(admin.TabularInline):
     model = Collection
     extra = 1
-    fields = ('name', 'art_type', 'image_sample')
-    readonly_fields = ('image_sample',)
+    fields = ('name', 'art_type', 'thumb_admin')
+    readonly_fields = ('thumb_admin',)
 
 class ArtistAdmin(admin.ModelAdmin):
     actions = [approve, publish]
