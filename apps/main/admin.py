@@ -73,8 +73,8 @@ def publish(self, request, queryset):
 class CollectionInline(admin.TabularInline):
     model = Collection
     extra = 1
-    fields = ('name', 'art_type', 'thumb_admin')
-    readonly_fields = ('thumb_admin',)
+    fields = ('name', 'art_type', 'admin_url_html', 'thumb_admin')
+    readonly_fields = ('thumb_admin', 'admin_url_html')
 
 class ArtistAdmin(admin.ModelAdmin):
     actions = [approve, publish]
@@ -82,23 +82,15 @@ class ArtistAdmin(admin.ModelAdmin):
     list_filter = ('submission', 'active')
     search_fields = ['firstname', 'lastname']    
     def save_model(self, request, obj, form, change):
-        launch_approve = False
-        launch_publish = False
+
         artist = Artist.objects.get(pk=obj.pk)
+        obj.save()
         
         if (change and artist.submission):
             if (artist.active == False and obj.active):
-                launch_approve = True
+                _approve(obj)
             if (artist.approved == False and obj.approved):
-                obj.firstname = 'APPROVED!'
-                launch_publish = True
-            
-        obj.save()
-        
-        if launch_approve :
-            _approve(obj)
-        if launch_publish :
-            _publish(obj)
+                _publish(obj)
             
 	
 admin.site.register(Artist, ArtistAdmin)

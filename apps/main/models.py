@@ -3,31 +3,48 @@ from django.contrib.auth.models import User as DjangoUser
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from django.contrib.sitemaps import ping_google
+from django.contrib.sites.models import Site
+from django.core import urlresolvers
 from main.thumbs import ImageWithThumbsField
 import random, re, json, logging
 
-logger = logging.getLogger(__name__)
-logFile = logging.FileHandler(settings.MAIN_DIR + 'logs')
-logger.addHandler(logFile)
+site = Site.objects.get(id=settings.SITE_ID)
+
+if site.id != 1 :
+    logger = logging.getLogger(__name__)
+    logFile = logging.FileHandler(settings.MAIN_DIR + 'logs')
+    logger.addHandler(logFile)
 
 class DefaultModel(models.Model):	
-	created		= 	models.DateTimeField('Date Created', editable = True, auto_now_add=True)
-	modified	= 	models.DateTimeField('Date Updated', editable = True, auto_now=True)
-	active		= 	models.BooleanField(default=0)
-	def url(self):
-		return self.get_absolute_url()
-	def get_absolute_url(self):
-		className = self.__class__.__name__
-		name = self.__unicode__()
-		name = re.sub(r'[^a-z0-9-]+', '-', name.lower()).strip('-')
-		return "/"+ className.lower() +"/"+ str(self.pk) +"-"+ name
-	def pub_date(self):
-		return self.created
-	class Meta:
-		abstract = True
-		ordering = ["-id"]
-	def __unicode__(self):
-		return self.name
+    created		= 	models.DateTimeField('Date Created', editable = True, auto_now_add=True)
+    modified	= 	models.DateTimeField('Date Updated', editable = True, auto_now=True)
+    active		= 	models.BooleanField(default=0)
+    def url(self):
+        return self.get_absolute_url()
+    def get_absolute_url(self):
+        className = self.__class__.__name__.lower()
+        name = self.__unicode__()
+        name = re.sub(r'[^a-z0-9-]+', '-', name.lower()).strip('-')
+        return "/"+ className +"/"+ str(self.pk) +"-"+ name
+    def pub_date(self):
+        return self.created
+    def admin_url(self):
+        if self.pk == None :
+            return False
+        className = self.__class__.__name__.lower()
+        return 'http://%s%s' % (site.domain, urlresolvers.reverse('admin:main_'+ className +'_change', args=(self.id,)))
+    def admin_url_html(self):
+        url = self.admin_url()
+        if (url):
+            return '<a href="%s">Update</a>' % url
+        else :
+            return ''
+    admin_url_html.allow_tags = True
+    class Meta:
+        abstract = True
+        ordering = ["-id"]
+    def __unicode__(self):
+        return self.name
    
 class ArtType(DefaultModel):
 	name = models.CharField(max_length=150, verbose_name=_("Art Type"))
@@ -174,6 +191,8 @@ class Image(Piece):
     def toJson(self):
         return {'name': self.name, 'url':self.main_url().replace(' ', '%20'), 'url_200x200': self.photo.url_200x200.replace(' ', '%20')}
     def thumb_admin(self):
+        if self.pk == None :
+            return ''
         return '<img src="%s" style="padding:5px" alt="thumb" />' % (self.photo.url_200x200,)
     thumb_admin.allow_tags = True
 

@@ -3,7 +3,6 @@ from django.shortcuts import *
 from django import forms
 from main.models import *
 from main.admin import *
-from django.core import urlresolvers
 import os
 
 UPLOAD_DIR = settings.MEDIA_ROOT +'uploads/'
@@ -69,8 +68,7 @@ def submissionNew(request):
         msg.send()
         
         # Email to admin
-        admin_url = 'http://%s%s' % (site.domain, urlresolvers.reverse('admin:main_artist_change', args=(a.id,)))
-        html_content = 'New Artist <a href="%s">%s</a> ' % (admin_url, a)
+        html_content = 'New Artist <a href="%s">%s</a> ' % (a.admin_url(), a)
         msg = EmailMessage(subject, html_content, settings.EMAIL_HOST_USER, [settings.EMAIL_HOST_USER])
         msg.content_subtype = "html"
         msg.send()
