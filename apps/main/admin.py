@@ -73,8 +73,8 @@ def publish(self, request, queryset):
 class CollectionInline(admin.TabularInline):
     model = Collection
     extra = 1
-    fields = ('name', 'art_type', 'admin_url_html', 'thumb_admin')
-    readonly_fields = ('thumb_admin', 'admin_url_html')
+    fields = ('name', 'art_type', 'admin_url_html')
+    readonly_fields = ('admin_url_html',)
     def thumb_admin(self, collection):
         images = collection.focused()
         retain = ''
