@@ -24,7 +24,7 @@ admin.site.register(UrlType)
 # Images
 class ImageAdmin(admin.ModelAdmin):
 	list_display = ('name', 'thumb_admin')
-	fields = ('thumb_admin', 'name', 'focused',)
+	fields = ('name', 'thumb_admin', 'focused',)
 	readonly_fields = ('thumb_admin',)
 
 admin.site.register(Image, ImageAdmin)
@@ -75,6 +75,14 @@ class CollectionInline(admin.TabularInline):
     extra = 1
     fields = ('name', 'art_type', 'admin_url_html', 'thumb_admin')
     readonly_fields = ('thumb_admin', 'admin_url_html')
+    def thumb_admin(self, collection):
+        images = collection.focused()
+        retain = ''
+        images = images[:2]
+        for i in images :
+            retain += i.thumb_admin()
+        return retain
+    thumb_admin.allow_tags = True
 
 class ArtistAdmin(admin.ModelAdmin):
     actions = [approve, publish]
@@ -167,9 +175,17 @@ def create_post(self, request, queryset):
 		
 create_post.short_description = _("Create a Post")
 
+
+
 class CollectionAdmin(admin.ModelAdmin):
-	actions = [import_images, create_post]
-	inlines = (ImageInline,)
+    actions = [import_images, create_post]
+    fields = ['name', 'art_type', 'artist', 'artist_admin_url']
+    readonly_fields = ['artist_admin_url']
+    inlines = (ImageInline,)
+    def artist_admin_url(self, collection):
+        return collection.artist.admin_url_html()
+    artist_admin_url.allow_tags = True
+
 
 admin.site.register(Collection, CollectionAdmin)
 

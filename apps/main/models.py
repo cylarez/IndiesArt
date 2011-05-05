@@ -91,7 +91,6 @@ class Artist(DefaultModel):
             c.images()
             self.collections.append(c)
         return self.collections
-        
     def images(self, sample, toJson = False):
         self.images = []
         images = Image.objects.filter(collection__artist=self.pk).order_by('-focused', '-id')
@@ -101,9 +100,7 @@ class Artist(DefaultModel):
         if sample == False or len(images) < sample :
             sample = len(images)  
         self.images = images[:sample]
-        
         return self.images
-        
     def keywords(self):
         if self.lastname :
             return '%s,%s,%s' % (self.name(), self.firstname, self.lastname)
@@ -111,7 +108,6 @@ class Artist(DefaultModel):
             return self.firstname
     def toJson(self, image = False):
         artist = {'id': self.pk, 'name': self.name(), 'firstname': self.firstname, 'submission': self.submission}
-        
         if image :
             artist['image'] = image.photo.url_50x50.replace(' ', '%20')
         else :
@@ -159,14 +155,7 @@ class Collection(DefaultModel):
                 ping_google('/sitemap.xml')
             except Exception:
                 pass
-    def thumb_admin(self):
-        images = self.focused()
-        retain = ''
-        images = images[:2]
-        for i in images :
-            retain += i.thumb_admin()
-        return retain
-    thumb_admin.allow_tags = True
+
 
 class Piece(DefaultModel):
     name = models.CharField(max_length=255, blank=True, verbose_name=_("Piece Title"))
