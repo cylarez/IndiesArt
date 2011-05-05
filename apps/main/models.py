@@ -140,14 +140,12 @@ class Collection(DefaultModel):
     art_type = models.ForeignKey(ArtType)
     artist = models.ForeignKey(Artist, related_name='Author')
     media_type = models.ForeignKey(MediaType, blank=True, null=True)
-    
     def focused(self):
         images = Image.objects.filter(collection=self.pk, focused=1)
         for i in images :
             i.resize = (i.photo.width > 620)
         if (len(images) < 1) :
             images = Image.objects.filter(collection=self.pk)[:1]
-        
         self.focused = images
         return images
     def images(self):
@@ -162,11 +160,9 @@ class Collection(DefaultModel):
             except Exception:
                 pass
     def thumb_admin(self):
-        if self.artist.submission :
-            images = self.images()
-        else :
-            images = self.focused()
+        images = self.focused()
         retain = ''
+        images = images[:2]
         for i in images :
             retain += i.thumb_admin()
         return retain
