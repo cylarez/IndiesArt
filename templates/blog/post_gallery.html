@@ -5,12 +5,21 @@
 	<a href="{{ url }}{{ artist.url }}">Profile page</a>
 </p>
 
+<div style="width:620px;float:left;"></div>
+
 <div class="post-focused">
 {% for image in collection.focused %}
 	<a class="cadre-image" href="{{ url }}{{ image.url }}"><img {% if image.resize %} width="620" {% endif %} class="piece image" src="{{ image.main_url }}" title="{{ artist }} {{ collection }} {{ image.name }}" alt="{{ image.name }}" /></a>
 	<p class="inter-image">{{ image.name }}</p>
 {% endfor %}
 </div>
+
+{% if collection.artist.approved %}
+<div class="post-submission-info">
+    <p><i>This artist has used the submission process</i></p>
+    <a class="button classy" style="margin-bottom:20px" href="{{ url }}/account/submission/new">Make Your Own Submission!</a>
+</div>
+{% endif %}
 
 <h3><a href="{{ url }}{{ collection.url }}">{{ artist.name }} - {{ collection.name }} ({{ collection.images|length }} images)<span class="link-info">&raquo;View The Gallery</span></a></h3>
 

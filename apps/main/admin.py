@@ -9,20 +9,22 @@ from django.template.loader import render_to_string
 from django.template import defaultfilters
 from django.contrib.sites.models import Site
 from django.utils.html import strip_tags
+from datetime import datetime
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
 
 
 INDIE_BOX = settings.MEDIA_ROOT +'indie_box/'
+site = Site.objects.get(id=settings.SITE_ID)
 
 admin.site.register(ArtType)
 admin.site.register(MediaType)
 admin.site.register(UrlType)
 
 # Images
-
-
 class ImageAdmin(admin.ModelAdmin):
 	list_display = ('name', 'thumb_admin')
-	fields = ('thumb_admin', 'name', 'focused',)
+	fields = ('name', 'thumb_admin', 'focused',)
 	readonly_fields = ('thumb_admin',)
 
 admin.site.register(Image, ImageAdmin)
@@ -33,25 +35,71 @@ class UrlInline(admin.TabularInline):
 	model = Url
 	extra = 1
 
-def approved(self, request, queryset):
+def _approve(artist):
+    artist.active = 1
+    artist.save()
+    message_html = render_to_string('account/submission-email.html', {'artist': artist, 'url':site.domain})
+    message_text = strip_tags(message_html)
+    msg = EmailMultiAlternatives('Submission pre-approved', message_text, settings.EMAIL_HOST_USER, [artist.email, settings.EMAIL_HOST_USER])
+    msg.attach_alternative(message_html, "text/html")
+    msg.send() 
 
-	from django.core.mail import EmailMultiAlternatives
-	from django.template.loader import render_to_string
-	site = Site.objects.get(id=settings.SITE_ID)
-	
-	for artist in queryset:
-		artist.active = 1
-		artist.save()
-		message_html = render_to_string('account/submission-email.html', {'artist': artist, 'url':site.domain})
-		message_text = strip_tags(message_html)
-        msg = EmailMultiAlternatives('Submission pre-approved', message_text, settings.EMAIL_HOST_USER, [artist.email])
-        msg.attach_alternative(message_html, "text/html")
-        msg.send()
-	self.message_user(request, _("You have approved and sent the email to %s") % (artist.email))
+def approve(self, request, queryset):
+    for artist in queryset:
+        _approve(artist)
+    self.message_user(request, _("You have approved some artists"))
+
+def _publish(artist):
+    artist.created = datetime.now()
+    artist.approved = 1
+    artist.submission = 0
+    artist.save()
+    collections = Collection.objects.filter(artist=artist.pk)
+    c = collections[0]
+    count = _create_post(c, 'Approved Submission for %s' % artist)
+    
+    message_html = render_to_string('account/submission-published-email.html', {'artist': artist, 'url':site.domain})
+    message_text = strip_tags(message_html)
+    msg = EmailMultiAlternatives('Submission approved and published', message_text, settings.EMAIL_HOST_USER, [artist.email, settings.EMAIL_HOST_USER])
+    msg.attach_alternative(message_html, "text/html")
+    msg.send()
+
+def publish(self, request, queryset):
+    for artist in queryset:
+        _publish(artist)
+    self.message_user(request, _("You have publish some artists!"))
+
+
+class CollectionInline(admin.TabularInline):
+    model = Collection
+    extra = 1
+    fields = ('name', 'art_type', 'admin_url_html')
+    readonly_fields = ('admin_url_html',)
+    def thumb_admin(self, collection):
+        images = collection.focused()
+        retain = ''
+        images = images[:2]
+        for i in images :
+            retain += i.thumb_admin()
+        return retain
+    thumb_admin.allow_tags = True
 
 class ArtistAdmin(admin.ModelAdmin):
-	actions = [approved]
-	inlines = (UrlInline,)
+    actions = [approve, publish]
+    inlines = (CollectionInline, UrlInline)
+    list_filter = ('submission', 'active')
+    search_fields = ['firstname', 'lastname']    
+    def save_model(self, request, obj, form, change):
+
+        artist = Artist.objects.get(pk=obj.pk)
+        obj.save()
+        
+        if (change and artist.submission):
+            if (artist.active == False and obj.active):
+                _approve(obj)
+            if (artist.approved == False and obj.approved):
+                _publish(obj)
+            
 	
 admin.site.register(Artist, ArtistAdmin)
 
@@ -92,49 +140,52 @@ def load_image(collection, folder):
 		default_storage.delete(f)
 	return len(files)
 		
+def _create_post(c, title):
+    # Wordpress Post
+	url = 'http://'+ site.domain
+	
+	images = c.images()[:15]
+	content = render_to_string('blog/post_gallery.html', {'artist':c.artist, 'collection':c, 'images':images, 'url':url })
+	
+	post = Post(post_title=title, post_name=defaultfilters.slugify(title), post_content=content, post_author=1)
+	gmt_time = datetime.fromtimestamp(time.mktime(time.gmtime()))
+	post.post_date_gmt = gmt_time
+	post.post_modified_gmt = gmt_time
+	post.save()
+	
+	relation = Relation(object_id=post.pk, term_taxonomy_id=4)
+	relation.save()
+	
+	# Post's tags
+	post.add_tag(c.artist.__unicode__())
+	for art_type in c.artist.art_types.all():
+		post.add_tag(art_type.name)
+	
+	# Active artist
+	c.artist.active = 1
+	c.artist.save()
+	return len(images)
 		
 # Create Post Action
 def create_post(self, request, queryset):
-	site = Site.objects.get(id=settings.SITE_ID)
-	#api = twitter.Api(username='indiesart', password='838dg34', access_token_key='oJsShRSGfFSjw0IxoznVCQ', access_token_secret='ISmrsNgNI3WqFYVRDqSumExx9QXRN9tZycCLHAbNg') 
-	for c in queryset:
-		# Wordpress Post
-		url = 'http://'+ site.domain
-		
-		images = c.images()[:15]
-		title = 'New Gallery for %s' % c.artist
-		content = render_to_string('blog/post_gallery.html', {'artist':c.artist, 'collection':c, 'images':images, 'url':url })
-		
-		post = Post(post_title=title, post_name=defaultfilters.slugify(title), post_content=content, post_author=1)
-		gmt_time = datetime.datetime.fromtimestamp(time.mktime(time.gmtime()))
-		post.post_date_gmt = gmt_time
-		post.post_modified_gmt = gmt_time
-		post.save()
-		
-		relation = Relation(object_id=post.pk, term_taxonomy_id=4)
-		relation.save()
-		
-		# Post's tags
-		post.add_tag(c.artist.__unicode__())
-		for art_type in c.artist.art_types.all():
-			post.add_tag(art_type.name)
-		
-		# Active artist
-		c.artist.active = 1
-		c.artist.save()
-		
-		# Twitter
-		#if (settings.SITE_ID == 1):
-			#api.PostUpdate(title +' => '+ post.url())
-		
-		time.sleep(1)
-	self.message_user(request, _("You have create a post with %d images into %s ") % (len(images), c.name))
+    for c in queryset:
+        count = _create_post(c, 'New Gallery for %s' % c.artist)
+
+    self.message_user(request, _("You have create a post with %d images into %s ") % (count, c.name))
 		
 create_post.short_description = _("Create a Post")
 
+
+
 class CollectionAdmin(admin.ModelAdmin):
-	actions = [import_images, create_post]
-	inlines = (ImageInline,)
+    actions = [import_images, create_post]
+    fields = ['name', 'art_type', 'artist', 'artist_admin_url']
+    readonly_fields = ['artist_admin_url']
+    inlines = (ImageInline,)
+    def artist_admin_url(self, collection):
+        return collection.artist.admin_url_html()
+    artist_admin_url.allow_tags = True
+
 
 admin.site.register(Collection, CollectionAdmin)
 

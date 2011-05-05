@@ -7,6 +7,10 @@ from django.template import Context, Template
 import json
 
 def main(request):
+    t = loader.get_template('mobile/main.json')   
+    return HttpResponse(t.render(Context({})), mimetype='text/javascript')
+
+def main_bck(request):
     slides = []
     submissions = []
     
