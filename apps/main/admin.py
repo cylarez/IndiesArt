@@ -185,6 +185,7 @@ class CollectionAdmin(admin.ModelAdmin):
     def artist_admin_url(self, collection):
         return collection.artist.admin_url_html()
     artist_admin_url.allow_tags = True
+    raw_id_fields = ("artist",)
 
 
 admin.site.register(Collection, CollectionAdmin)
