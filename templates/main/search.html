@@ -30,7 +30,7 @@
 		</ul>
 		{% for image in artist.images %}
 
-			<a rel="group-{{ artist.pk }}" class="fancybox cadre-image thumbs-medium-2" href="{{ image.photo.url }}" title="{% include "main/image_info.html" %}">
+			<a rel="group-{{ artist.pk }}" class="fancybox cadre-image thumbs-medium-2" href="{{ image.main_url }}" title="{% include "main/image_info.html" %}">
 				<img width="99" title="{{ image }}" src="{{ image.photo.url_200x200 }}" class="piece image" alt="{{ image }}" />
 			</a>
 

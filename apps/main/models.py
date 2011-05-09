@@ -8,12 +8,9 @@ from django.core import urlresolvers
 from main.thumbs import ImageWithThumbsField
 import random, re, json, logging
 
+
 site = Site.objects.get(id=settings.SITE_ID)
 
-if site.id != 1 :
-    logger = logging.getLogger(__name__)
-    logFile = logging.FileHandler(settings.MAIN_DIR + 'logs')
-    logger.addHandler(logFile)
 
 class DefaultModel(models.Model):	
     created		= 	models.DateTimeField('Date Created', editable = True, auto_now_add=True)
@@ -73,7 +70,6 @@ class Artist(DefaultModel):
     art_types = models.ManyToManyField(ArtType)
     bio = models.TextField(verbose_name=_("Biography"))
     bio_fr = models.TextField(verbose_name=_("Biography Fr"), blank=True)
-
     def urls(self):
         self.urls = Url.objects.filter(artist=self.pk)
         return self.urls
@@ -95,8 +91,10 @@ class Artist(DefaultModel):
         self.images = []
         images = Image.objects.filter(collection__artist=self.pk).order_by('-focused', '-id')
         if toJson :
+            _images = []
             for image in images :
-                image = image.toJson()  
+                _images.append(image.toJson())
+            images = _images
         if sample == False or len(images) < sample :
             sample = len(images)  
         self.images = images[:sample]
@@ -106,13 +104,17 @@ class Artist(DefaultModel):
             return '%s,%s,%s' % (self.name(), self.firstname, self.lastname)
         else :
             return self.firstname
-    def toJson(self, image = False):
+    def toJson(self, main_image = False):
         artist = {'id': self.pk, 'name': self.name(), 'firstname': self.firstname, 'submission': self.submission}
-        if image :
-            artist['image'] = image.photo.url_50x50.replace(' ', '%20')
+        if main_image :
+            self.images(1)
+            image = self.main_image()
+            artist['image'] = image.photo.url_200x200.replace(' ', '%20')
         else :
             artist['images'] = self.images(False, True)
         return artist
+    def main_image(self):
+        return self.images[0]
     class Meta:
         ordering = ["-created"]
 
@@ -138,8 +140,6 @@ class Collection(DefaultModel):
     media_type = models.ForeignKey(MediaType, blank=True, null=True)
     def focused(self):
         images = Image.objects.filter(collection=self.pk, focused=1)
-        for i in images :
-            i.resize = (i.photo.width > 620)
         if (len(images) < 1) :
             images = Image.objects.filter(collection=self.pk)[:1]
         self.focused = images
@@ -165,14 +165,14 @@ class Piece(DefaultModel):
 class Image(Piece):
     def get_path(self, name):
         return 'image/%d/%d/%s' % (self.collection.artist.id, self.collection.id, name) 
-    photo = ImageWithThumbsField(upload_to=get_path, sizes=((50,50),(200,200)))
+    photo = ImageWithThumbsField(upload_to=get_path, sizes=((50,50), (100,100), (200,200), (640, 960)))
     def file_name(self):
         tab = self.photo.name.split("/")
         return tab[len(tab)-1]
     def home_file_name(self):
         return '%shome_slide/%s' % (settings.MEDIA_URL, self.file_name())
     def main_url(self):
-        return settings.MEDIA_URL + self.photo.name
+        return self.photo.url_640x960
     def toJson(self):
         return {'name': self.name, 'url':self.main_url().replace(' ', '%20'), 'url_200x200': self.photo.url_200x200.replace(' ', '%20')}
     def thumb_admin(self):

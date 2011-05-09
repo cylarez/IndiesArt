@@ -21,7 +21,19 @@
 $(document).ready(function() {
 	$.fn.tipsy.defaults.opacity = 0.7;
 	$("form.jqtransform").jqTransform();
-	$('#step').validate();
+
+	$('#step').validate({
+        submitHandler: function(form) {
+            if (! $('.MultiFile-label').length) {
+                alert('This is no image in your gallery...');
+                return;
+            }
+            $('#submit-submission span:last').html('Loading please wait ...');
+            $.fancybox.showActivity();
+            form.submit();
+        }
+    });
+
 	$('#step input').tipsy({trigger: 'focus', gravity: 'w', html: true});
 	setTimeout(function() {
 		$('#step').animate({opacity:1})
@@ -102,8 +114,8 @@ $(document).ready(function() {
 		</div>
 		
 		<div class="rowElem" style="padding-top:10px">
-			<label>Biography</label>
-			<textarea rows="5" cols="48" name="bio"></textarea>
+			<label>Biography / Information<span class="red">*</span></label>
+			<textarea class="required" rows="5" cols="48" name="bio"></textarea>
 		</div>
 		
 	</div>
@@ -126,7 +138,7 @@ $(document).ready(function() {
 	<div class="step-panel round" style="margin-right:15px;height:90px;">
 		<h2 class="with-icon step-3">Send your submission</h2>
 		<div class="rowElem" style="padding-left:70px">
-			<input type="submit" value="Submit All" />
+			<input id="submit-submission" type="submit" value="Submit All" />
 		</div>
 	</div>
 	
