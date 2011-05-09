@@ -3,7 +3,7 @@
 	<div class="image-frame">
 		<div class="image-fb">
 			<fb:like style="width:110px" layout="button_count" href="http://www.indiesart.com{% if image.collection.artist.submission %}{{ image.collection.artist.url }}{% else %}{{ image.url }}{% endif %}"></fb:like>
-			<a rel="group" class="fancybox" title="{% include "main/image_info.html" %}" href="{{ image.photo.url }}">Quick View</a>
+			<a rel="group" class="fancybox" title="{% include "main/image_info.html" %}" href="{{ image.main_url }}">Quick View</a>
 			<div class="clear"></div>
 		</div>
 		<div style="image-info">

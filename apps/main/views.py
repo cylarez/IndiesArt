@@ -119,8 +119,7 @@ def image(request, image_id):
 	#collection.images	=	random.sample(images, len(images)<10 and len(images) or 10)
 	collection.images	=	images[:10]
 
-	resize = (image.photo.width > 670)
-	return render_to_response('main/image.html', {'image':image, 'collection':collection, 'artist':artist, 'resize':resize, 'url':site.domain})
+	return render_to_response('main/image.html', {'image':image, 'collection':collection, 'artist':artist, 'url':site.domain})
 
 def random(request):
 	images = Image.objects.filter(collection__artist__submission=0, collection__artist__active=1).order_by('?')[:16]

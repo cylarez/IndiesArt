@@ -9,7 +9,7 @@
 
 <div class="post-focused">
 {% for image in collection.focused %}
-	<a class="cadre-image" href="{{ url }}{{ image.url }}"><img {% if image.resize %} width="620" {% endif %} class="piece image" src="{{ image.main_url }}" title="{{ artist }} {{ collection }} {{ image.name }}" alt="{{ image.name }}" /></a>
+	<a class="cadre-image" href="{{ url }}{{ image.url }}"><img class="piece image" src="{{ image.main_url }}" title="{{ artist }} {{ collection }} {{ image.name }}" alt="{{ image.name }}" /></a>
 	<p class="inter-image">{{ image.name }}</p>
 {% endfor %}
 </div>
