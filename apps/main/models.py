@@ -8,6 +8,7 @@ from django.core import urlresolvers
 from main.thumbs import ImageWithThumbsField
 import random, re, json, logging
 
+
 site = Site.objects.get(id=settings.SITE_ID)
 
 if site.id != 1 :
@@ -95,8 +96,10 @@ class Artist(DefaultModel):
         self.images = []
         images = Image.objects.filter(collection__artist=self.pk).order_by('-focused', '-id')
         if toJson :
+            _images = []
             for image in images :
-                image = image.toJson()  
+                _images.append(image.toJson())
+            images = _images
         if sample == False or len(images) < sample :
             sample = len(images)  
         self.images = images[:sample]
@@ -109,7 +112,7 @@ class Artist(DefaultModel):
     def toJson(self, image = False):
         artist = {'id': self.pk, 'name': self.name(), 'firstname': self.firstname, 'submission': self.submission}
         if image :
-            artist['image'] = image.photo.url_50x50.replace(' ', '%20')
+            artist['image'] = image.photo.url_200x200.replace(' ', '%20')
         else :
             artist['images'] = self.images(False, True)
         return artist
