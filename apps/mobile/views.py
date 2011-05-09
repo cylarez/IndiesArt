@@ -20,7 +20,7 @@ def main(request):
     artists = []
     for artist in Artist.objects.filter(active=1):
         collections = artist.collections()
-        a = artist.toJson( collections[len(collections)-1].focused()[0])
+        a = artist.toJson(True)
         if artist.submission :
             submissions.append(a)
         else :
