@@ -6,11 +6,11 @@ from main.views import getHomeArtists
 from django.template import Context, Template
 import json
 
-def main(request):
+def main_bck(request):
     t = loader.get_template('mobile/main.json')   
     return HttpResponse(t.render(Context({})), mimetype='text/javascript')
 
-def main_bck(request):
+def main(request):
     slides = []
     submissions = []
     
@@ -20,7 +20,7 @@ def main_bck(request):
     artists = []
     for artist in Artist.objects.filter(active=1):
         collections = artist.collections()
-        a = artist.toJson( collections[len(collections)-1].focused()[0])
+        a = artist.toJson(True)
         if artist.submission :
             submissions.append(a)
         else :

@@ -8,6 +8,7 @@ from django.core import urlresolvers
 from main.thumbs import ImageWithThumbsField
 import random, re, json, logging
 
+
 site = Site.objects.get(id=settings.SITE_ID)
 
 
@@ -69,7 +70,6 @@ class Artist(DefaultModel):
     art_types = models.ManyToManyField(ArtType)
     bio = models.TextField(verbose_name=_("Biography"))
     bio_fr = models.TextField(verbose_name=_("Biography Fr"), blank=True)
-
     def urls(self):
         self.urls = Url.objects.filter(artist=self.pk)
         return self.urls
@@ -91,8 +91,10 @@ class Artist(DefaultModel):
         self.images = []
         images = Image.objects.filter(collection__artist=self.pk).order_by('-focused', '-id')
         if toJson :
+            _images = []
             for image in images :
-                image = image.toJson()  
+                _images.append(image.toJson())
+            images = _images
         if sample == False or len(images) < sample :
             sample = len(images)  
         self.images = images[:sample]
@@ -102,13 +104,17 @@ class Artist(DefaultModel):
             return '%s,%s,%s' % (self.name(), self.firstname, self.lastname)
         else :
             return self.firstname
-    def toJson(self, image = False):
+    def toJson(self, main_image = False):
         artist = {'id': self.pk, 'name': self.name(), 'firstname': self.firstname, 'submission': self.submission}
-        if image :
-            artist['image'] = image.photo.url_50x50.replace(' ', '%20')
+        if main_image :
+            self.images(1)
+            image = self.main_image()
+            artist['image'] = image.photo.url_200x200.replace(' ', '%20')
         else :
             artist['images'] = self.images(False, True)
         return artist
+    def main_image(self):
+        return self.images[0]
     class Meta:
         ordering = ["-created"]
 
