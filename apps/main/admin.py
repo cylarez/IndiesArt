@@ -90,10 +90,11 @@ class ArtistAdmin(admin.ModelAdmin):
     list_filter = ('submission', 'active')
     search_fields = ['firstname', 'lastname']    
     def save_model(self, request, obj, form, change):
-
-        artist = Artist.objects.get(pk=obj.pk)
         obj.save()
         
+        if obj.pk :
+            return True
+        artist = Artist.objects.get(pk=obj.pk)
         if (change and artist.submission):
             if (artist.active == False and obj.active):
                 _approve(obj)
