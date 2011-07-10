@@ -2,7 +2,7 @@
 
 {% load helpers %}
 
-{% block description %}{{ artist.bio|striptags|truncatewords:30 }}{% endblock %}
+{% block description %}{{ artist.bio|striptags|truncatewords:20 }}{% endblock %}
 {% block keywords %}{{ artist.keywords }},{{ artist.art_types.all|join:","|clean_keywords }}{% endblock %}
 {% block title %} - {{ artist }}{% if isCollection %} - {{ artist.collections|first }}{% endif %}{% endblock %}
 {% block head %}<meta property="og:image" content="{{ artist.main_image.main_url }}"/>{% endblock %}

@@ -1,7 +1,7 @@
 {% extends "indiesart.html" %}
 
 {% load helpers %}
-{% block description %}{{ collection }} is a gallery of images created by {{ artist }}. {{ page }} {{ artist.bio|truncatewords:20 }}{% endblock %}
+{% block description %}{{ collection }} is a gallery of images created by {{ artist }}. {{ page }} {{ artist.bio|truncatewords:10 }}{% endblock %}
 {% block keywords %}{{ artist.keywords }},{{ collection}},{{ collection.art_type|clean_keywords }}{% endblock %}
 
 {% block title %} - {{ artist }} - {{ collection }} - {{ page }}{% endblock %}

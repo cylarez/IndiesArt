@@ -148,7 +148,7 @@ def _create_post(c, title):
 	images = c.images()[:15]
 	content = render_to_string('blog/post_gallery.html', {'artist':c.artist, 'collection':c, 'images':images, 'url':url })
 	
-	post = Post(post_title=title, post_name=defaultfilters.slugify(title), post_content=content, post_author=1)
+	post = Post(post_title=title, post_name=defaultfilters.slugify(title), post_content=content, post_author=2)
 	gmt_time = datetime.fromtimestamp(time.mktime(time.gmtime()))
 	post.post_date_gmt = gmt_time
 	post.post_modified_gmt = gmt_time

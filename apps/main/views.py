@@ -52,7 +52,7 @@ def index(request):
 
 def artists(request, num):
 	artists = Artist.objects.filter(active=1, submission=0)
-	paginator = Paginator(artists, 12)
+	paginator = Paginator(artists, 8)
 	
 	try:
 		page = paginator.page(num)
