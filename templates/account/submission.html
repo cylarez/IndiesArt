@@ -3,7 +3,7 @@
 {% load helpers %}
 {% block description %}Submission from {{ artist }}. {{ artist.bio|striptags|truncatewords:30 }}{% endblock %}
 {% block keywords %}submission,{{ artist.keywords }},{{ artist.art_types.all|join:","|clean_keywords }}{% endblock %}
-
+{% block head %}<meta property="og:image" content="{{ artist.main_image.main_url }}"/>{% endblock %}
 {% block title %} - Submission - {{ artist }}{% endblock %}
 
 {% block content %}

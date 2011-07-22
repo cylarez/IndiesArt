@@ -6,12 +6,12 @@
 {% block title %} - {{ artist }} - {{ collection }} - {{ image }}{% endblock %}
 
 {% block head %}
-<meta property="og:image" content="{{ image.main_url }}"/>
+<meta property="og:image" content="{{ image.photo.url_200x200 }}"/>
 {% endblock %}
 
 {% block content %}
 
-<h1><a href="{{ artist.url }}">{{ artist }}<span class="link-info"><< Back to artist's profile</span></a></h1>
+<h1><a href="{{ artist.url }}">{{ artist }}<span class="link-info">&lt;&lt; Back to artist's profile</span></a></h1>
 
 
 <div style="width:684px;float:left;"> 
@@ -32,7 +32,7 @@
 </div>
 
 <div style="float:left;width:260px;">
-	<h2><a href="{{ collection.url }}">{{ collection }}<span class="link-info"><< Back to gallery</span></a></h2>
+	<h2><a href="{{ collection.url }}">{{ collection }}<span class="link-info">&lt;&lt; Back to gallery</span></a></h2>
 	{% for image in collection.images %}
 		<a style="margin:0 5px 5px 0;{% cycle 'clear:both;' '' %}" class="cadre-image" href="{{ image.url }}">
 			<img style="width:117px;" src="{{ image.photo.url_200x200 }}" class="piece image" alt="{{ image.name }}" title="{{ image.name }}" />
