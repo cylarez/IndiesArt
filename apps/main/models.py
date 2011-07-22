@@ -87,14 +87,9 @@ class Artist(DefaultModel):
             c.images()
             self.collections.append(c)
         return self.collections
-    def images(self, sample, toJson = False):
+    def images(self, sample = False):
         self.images = []
         images = Image.objects.filter(collection__artist=self.pk).order_by('-focused', '-id')
-        if toJson :
-            _images = []
-            for image in images :
-                _images.append(image.toJson())
-            images = _images
         if sample == False or len(images) < sample :
             sample = len(images)  
         self.images = images[:sample]
@@ -105,13 +100,16 @@ class Artist(DefaultModel):
         else :
             return self.firstname
     def toJson(self, main_image = False):
-        artist = {'id': self.pk, 'name': self.name(), 'firstname': self.firstname, 'submission': self.submission}
+        images = self.images()
+        artist = {'id': self.pk, 'name': self.name(), 'firstname': self.firstname, 'submission': self.submission, 'image_number': len(images),}
         if main_image :
-            self.images(1)
             image = self.main_image()
-            artist['image'] = image.photo.url_200x200.replace(' ', '%20')
+            artist['image'] = image.photo.url_100x100.replace(' ', '%20')
         else :
-            artist['images'] = self.images(False, True)
+            _images = []
+            for image in images :
+                _images.append(image.toJson())
+            artist['images'] = _images
         return artist
     def main_image(self):
         return self.images[0]
@@ -174,7 +172,7 @@ class Image(Piece):
     def main_url(self):
         return self.photo.url_640x960
     def toJson(self):
-        return {'name': self.name, 'url':self.main_url().replace(' ', '%20'), 'url_200x200': self.photo.url_200x200.replace(' ', '%20')}
+        return {'name': self.name, 'url_page': self.url(), 'url':self.main_url().replace(' ', '%20'), 'url_200x200': self.photo.url_200x200.replace(' ', '%20')}
     def thumb_admin(self):
         if self.pk == None :
             return ''
