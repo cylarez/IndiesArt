@@ -82,3 +82,5 @@ INSTALLED_APPS = (
     'account',
     'mobile',
 )
+
+MOBILE_JSON_PATH = 'mobile_data.json'

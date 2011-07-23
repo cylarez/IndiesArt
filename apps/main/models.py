@@ -6,6 +6,10 @@ from django.contrib.sitemaps import ping_google
 from django.contrib.sites.models import Site
 from django.core import urlresolvers
 from main.thumbs import ImageWithThumbsField
+
+from django.shortcuts import *
+from django.template import Context, Template
+
 import random, re, json, logging
 
 
@@ -148,6 +152,7 @@ class Collection(DefaultModel):
         return images
     def save(self, force_insert=False, force_update=False):
         super(Collection, self).save(force_insert, force_update)
+        load_mobile_data()
         if (settings.SITE_ID == 1):
             try:
                 ping_google('/sitemap.xml')
@@ -181,3 +186,46 @@ class Image(Piece):
 
 class User(DjangoUser):
 	favoris = models.ManyToManyField(Collection, blank=True, related_name='Favoris')
+	
+
+# Various data shortcut
+
+def getHomeArtists():
+    homeImageId = [9688, 13213, 13704, 13582, 13156, 12563, 12351, 11663, 11291, 10689, 9940]
+    homeArtists = []
+    
+    for id in homeImageId :
+        i = Image.objects.get(pk=id)
+        a = i.collection.artist
+        a.image = i
+        homeArtists.append(a)
+    
+    return homeArtists
+
+def load_mobile_data():
+    slides = []
+    submissions = []
+    
+    for artist in getHomeArtists() :
+        slides.append({'url':artist.image.home_file_name(), 'name': artist.name(), 'id':artist.pk})
+    
+    artists = []
+    for artist in Artist.objects.filter(active=1):
+        collections = artist.collections()
+        a = artist.toJson(True)
+        if artist.submission :
+            submissions.append(a)
+        else :
+            artists.append(a)
+    
+    
+    t = loader.get_template('mobile/main_live.json')
+    c = Context({
+                'artists': json.dumps(artists, indent=4),
+                'slides': json.dumps(slides, indent=4),
+                'submissions': json.dumps(submissions, indent=4)
+                })
+    
+    f = open(settings.MEDIA_ROOT + settings.MOBILE_JSON_PATH, 'w')
+    f.write(t.render(c))
+    f.close()

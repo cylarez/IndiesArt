@@ -8,18 +8,6 @@ from django.core.paginator import Paginator, InvalidPage, EmptyPage
 
 import random, json
 
-def getHomeArtists():
-    homeImageId = [9688, 13213, 13704, 13582, 13156, 12563, 12351, 11663, 11291, 10689, 9940]
-    homeArtists = []
-    
-    for id in homeImageId :
-        i = Image.objects.get(pk=id)
-        a = i.collection.artist
-        a.image = i
-        homeArtists.append(a)
-    
-    return homeArtists
-
 def index(request):
 
 	homeArtists = getHomeArtists()
@@ -124,4 +112,3 @@ def image(request, image_id):
 def random(request):
 	images = Image.objects.filter(collection__artist__submission=0, collection__artist__active=1).order_by('?')[:16]
 	return render_to_response('main/random.html', {'images': images})
-	

@@ -1,6 +1,54 @@
 {
     "artists": [
     {
+        "firstname": "Ai", 
+        "submission": false, 
+        "image": "http://files.indiesart.com/assets/image/487/682/AiShinohara6.100x100.jpeg", 
+        "id": 487, 
+        "image_number": 15, 
+        "name": "Ai Shinohara"
+    }, 
+    {
+        "firstname": "Zhang", 
+        "submission": false, 
+        "image": "http://files.indiesart.com/assets/image/486/681/image3.100x100.jpg", 
+        "id": 486, 
+        "image_number": 28, 
+        "name": "Zhang Xiaobai"
+    }, 
+    {
+        "firstname": "Ericka", 
+        "submission": false, 
+        "image": "http://files.indiesart.com/assets/image/485/680/bruises.100x100.png", 
+        "id": 485, 
+        "image_number": 24, 
+        "name": "Ericka Lugo"
+    }, 
+    {
+        "firstname": "Lola", 
+        "submission": false, 
+        "image": "http://files.indiesart.com/assets/image/483/678/wide.100x100.jpeg", 
+        "id": 483, 
+        "image_number": 53, 
+        "name": "Lola"
+    }, 
+    {
+        "firstname": "Joe", 
+        "submission": false, 
+        "image": "http://files.indiesart.com/assets/image/480/675/780wide_lookoutbelow.100x100.jpg", 
+        "id": 480, 
+        "image_number": 17, 
+        "name": "Joe Scarano"
+    }, 
+    {
+        "firstname": "Brandi", 
+        "submission": false, 
+        "image": "http://files.indiesart.com/assets/image/478/673/Brooke.100x100.jpeg", 
+        "id": 478, 
+        "image_number": 21, 
+        "name": "Brandi Read"
+    }, 
+    {
         "firstname": "Fabien", 
         "submission": false, 
         "image": "http://files.indiesart.com/assets/image/433/624/Jesus-ride-alone.100x100.jpg", 
@@ -2971,6 +3019,30 @@
 ],
     "submissions" : [
     {
+        "firstname": "Raymond", 
+        "submission": true, 
+        "image": "http://files.indiesart.com/assets/image/482/677/Mind%20Blowing.100x100.jpg", 
+        "id": 482, 
+        "image_number": 25, 
+        "name": "Raymond Klecker"
+    }, 
+    {
+        "firstname": "Luisa", 
+        "submission": true, 
+        "image": "http://files.indiesart.com/assets/image/477/672/luisachillida-n13.100x100.jpg", 
+        "id": 477, 
+        "image_number": 10, 
+        "name": "Luisa Chillida"
+    }, 
+    {
+        "firstname": "Anne", 
+        "submission": true, 
+        "image": "http://files.indiesart.com/assets/image/475/670/Anne_Cobai_%20Cross-My-Heart.100x100.jpg", 
+        "id": 475, 
+        "image_number": 8, 
+        "name": "Anne Cobai"
+    }, 
+    {
         "firstname": "Sam", 
         "submission": true, 
         "image": "http://files.indiesart.com/assets/image/471/662/LadyoftheFlowers.100x100.jpg", 
@@ -3025,14 +3097,6 @@
         "id": 426, 
         "image_number": 13, 
         "name": "Fran Learte"
-    }, 
-    {
-        "firstname": "Tynke", 
-        "submission": true, 
-        "image": "http://files.indiesart.com/assets/image/424/615/kerst'09%20LIGHT.100x100.jpg", 
-        "id": 424, 
-        "image_number": 5, 
-        "name": "Tynke Mulder"
     }, 
     {
         "firstname": "Marina", 
@@ -3235,14 +3299,6 @@
         "name": "Emmanuel Adlain"
     }, 
     {
-        "firstname": "Andrea", 
-        "submission": true, 
-        "image": "http://files.indiesart.com/assets/image/322/514/LgStageleft.100x100.jpg", 
-        "id": 322, 
-        "image_number": 6, 
-        "name": "Andrea Ramirez"
-    }, 
-    {
         "firstname": "Marco", 
         "submission": true, 
         "image": "http://files.indiesart.com/assets/image/321/513/haddock.100x100.jpg", 
@@ -3275,14 +3331,6 @@
         "name": "Kristie Webster"
     }, 
     {
-        "firstname": "Jorge", 
-        "submission": true, 
-        "image": "http://files.indiesart.com/assets/image/311/501/UPRED.100x100.jpg", 
-        "id": 311, 
-        "image_number": 9, 
-        "name": "Jorge Melendez"
-    }, 
-    {
         "firstname": "Ana", 
         "submission": true, 
         "image": "http://files.indiesart.com/assets/image/309/500/16_Me_niego_1.100x100.jpg", 
@@ -3297,14 +3345,6 @@
         "id": 303, 
         "image_number": 6, 
         "name": "Thad Taylor"
-    }, 
-    {
-        "firstname": "Nick", 
-        "submission": true, 
-        "image": "http://files.indiesart.com/assets/image/302/496/SIGNALSTARR.100x100.jpg", 
-        "id": 302, 
-        "image_number": 5, 
-        "name": "Nick Hoyle"
     }, 
     {
         "firstname": "Claudio", 
