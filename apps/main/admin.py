@@ -165,6 +165,10 @@ def _create_post(c, title):
 	# Active artist
 	c.artist.active = 1
 	c.artist.save()
+	
+	# Update Mobile Data
+	load_mobile_data()
+	
 	return len(images)
 		
 # Create Post Action

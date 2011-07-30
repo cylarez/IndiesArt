@@ -12,9 +12,7 @@ from django.template import Context, Template
 
 import random, re, json, logging
 
-
 site = Site.objects.get(id=settings.SITE_ID)
-
 
 class DefaultModel(models.Model):	
     created		= 	models.DateTimeField('Date Created', editable = True, auto_now_add=True)
@@ -105,7 +103,7 @@ class Artist(DefaultModel):
             return self.firstname
     def toJson(self, main_image = False):
         images = self.images()
-        artist = {'id': self.pk, 'name': self.name(), 'firstname': self.firstname, 'submission': self.submission, 'image_number': len(images),}
+        artist = {'id': self.pk, 'name': self.name(), 'firstname': self.firstname, 'submission': self.submission, 'image_number': len(images), 'url': self.url(),}
         if main_image :
             image = self.main_image()
             artist['image'] = image.photo.url_100x100.replace(' ', '%20')
@@ -152,7 +150,6 @@ class Collection(DefaultModel):
         return images
     def save(self, force_insert=False, force_update=False):
         super(Collection, self).save(force_insert, force_update)
-        load_mobile_data()
         if (settings.SITE_ID == 1):
             try:
                 ping_google('/sitemap.xml')

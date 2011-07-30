@@ -133,3 +133,12 @@ p.descript {
 	float: left;
 	width: 150px;
 }
+
+.addthis_panel {
+    height: 45px;
+    padding-left: 10px;
+}
+
+.addthis_panel a:hover {
+    border: none !important;
+}

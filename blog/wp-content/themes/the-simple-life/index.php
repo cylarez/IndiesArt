@@ -19,19 +19,16 @@ include('header.php');
 	
 	<div class="clear storycontent">
 	
-		<div style="float:left;padding-left:10px;height:150px;width:75px;">
+		<div class="addthis_panel">
 			
-			<div style="padding-bottom:10px">
-				<?php if (function_exists('tweetmeme')) echo tweetmeme(); ?>
-			</div>
-			
-			<div style="padding-bottom:10px">
-				<?php 
-				//if (function_exists('fbmeme')) echo fbmeme(); 
-				if (function_exists('facebook_sharecount')) echo facebook_sharecount();
-				// if (function_exists('fbshare_manual')) echo fbshare_manual();
-				?>
-			</div>
+			<!-- AddThis Button BEGIN -->
+            <div class="addthis_toolbox addthis_default_style" addthis:url="<?php the_permalink() ?>">
+            <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+            <a class="addthis_button_tweet"></a>
+            <a class="addthis_counter addthis_pill_style"></a>
+            </div>
+           
+            <!-- AddThis Button END -->
 			
 		</div>
 			
@@ -60,5 +57,5 @@ include('header.php');
 <?php endif; ?>
 
 <?php posts_nav_link(' — ', __('&laquo; Previous'), __('Next &raquo;')); ?>
-
+ <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=cylarez"></script>
 <?php include('footer.php'); ?>
