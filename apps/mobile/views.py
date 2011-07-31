@@ -39,3 +39,7 @@ def discover(request):
     
     return HttpResponse(t.render(c), mimetype='text/javascript')
     
+def about(request):
+    t = loader.get_template('mobile/about.json')
+    data = Context(get_about_data())
+    return HttpResponse(t.render(data), mimetype='text/javascript')

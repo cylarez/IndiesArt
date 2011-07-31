@@ -226,3 +226,11 @@ def load_mobile_data():
     f = open(settings.MEDIA_ROOT + settings.MOBILE_JSON_PATH, 'w')
     f.write(t.render(c))
     f.close()
+    
+def get_about_data():
+    t = loader.get_template('mobile/main_live.json')
+    return {'images': Image.objects.count(), 
+            'artists': Artist.objects.filter(active=1, submission=0).count(),
+            'submissions': Artist.objects.filter(active=1, submission=1).count(),
+            }
+            

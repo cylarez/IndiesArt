@@ -1,0 +1,9 @@
+IndiesArt.com is an online art gallery with {{ artists|safe }} selected artists.
+
+We collect many kinds of talents, from already popular artists to the emergent geniuses.
+
+Artists are selected and submitted directly by our team or have submitted their works through the Submission Process. 
+
+You will find {{ images|safe }} pictures in the indiesArt database, so take a look to the Discover menu if you want to find new amazing works! 
+
+Enjoy and share!
