@@ -23,7 +23,7 @@ def artist(request, artist_id):
     return HttpResponse(t.render(c), mimetype='text/javascript')
 
 def discover(request):
-    images = Image.objects.filter(collection__artist__submission=0, collection__artist__active=1).order_by('?')[:57]
+    images = Image.objects.filter(collection__artist__submission=0, collection__artist__active=1).order_by('?')[:24]
     _images = []
     for image in images :
         data = image.toJson()

@@ -3,5 +3,6 @@
 apache/apache.wsgi
 assets/image/
 blog/wp-config-local.php
+blog/wp-content/uploads
 settings_local.py
-
+assets/mobile_data.json
