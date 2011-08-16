@@ -68,6 +68,7 @@ include('sidebar.php');
 	</script>
 	
     <!-- GoSquared Code -->
+<!--
     <script type="text/javascript">
     var GoSquared={};
     GoSquared.acct = "GSN-963457-S";
@@ -80,6 +81,7 @@ include('sidebar.php');
         w.addEventListener?w.addEventListener("load",gs,false):w.attachEvent("onload",gs);
     })(window);
     </script>
+-->
 	<!-- End GoSquared Code -->
 	
 </body>

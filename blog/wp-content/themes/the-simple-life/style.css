@@ -142,3 +142,7 @@ p.descript {
 .addthis_panel a:hover {
     border: none !important;
 }
+
+.intro p {
+    padding-bottom: 10px !important;
+}
