@@ -68,7 +68,7 @@ def artist(request, artist_id):
 
 
 def submission(artist):	
-	artist.images(32)
+	artist.images()
 	return render_to_response('account/submission.html', {'artist':artist})
 
 
