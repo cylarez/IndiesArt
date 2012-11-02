@@ -10,6 +10,7 @@
 			{% if image.collection.artist.submission %}
 			
 			<a class="thumbs-href" href="http://twitter.com/share" data-url="http://www.indiesart.com{{ image.collection.artist.url }}" data-text="I promote {{ image.collection.artist }} in the indiesArt submission process!" class="twitter-share-button" data-count="horizontal" data-via="indiesart">Tweet</a>
+			
 			<br/>
 			{{ image.name }} by {{ image.collection.artist }}<br/>			
 			<a href="{{ image.collection.artist.url }}">View Submission</a>
@@ -17,6 +18,7 @@
 			{% else %}
 			
 			<a href="http://twitter.com/share" data-url="http://www.indiesart.com{{ image.url }}" data-text="{{ image.collection.artist }} - {{ image.name }}" class="twitter-share-button" data-count="horizontal" data-via="indiesart">Tweet</a>
+			<a href="http://pinterest.com/pin/create/button/?url=www.indiesart.com{{ image.url }}&media={{ image.main_url }}&description=indiesart.com - {{ image.collection.artist }}" class="pin-it-button" count-layout="horizontal">Pin It</a>
 			<br/>
 			{{ image.name }} by {{ image.collection.artist }}<br/>			
 			<a class="thumbs-href" href="{{ image.url }}">View The Image</a> - <a href="{{ image.collection.artist.url }}">Artist Profile</a>

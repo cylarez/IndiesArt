@@ -16,13 +16,14 @@
 
 <div style="width:684px;float:left;"> 
 
-	<div style="float:left;padding:10px 20px 32px 0">
-	
+	<div style="padding:10px 0 20px 0">
 		<h3>{{ image }}</h3>
-
 	</div>
-	<div style="float:left;height:20px;padding-top:5px;">
-		<fb:like layout="button_count"></fb:like>
+	<div style="float:left;padding: 10px 20px 0 0">
+	   <a href="http://pinterest.com/pin/create/button/?url=www.indiesart.com{{ image.url }}&media={{ image.main_url }}&description=indiesart.com - {{ artist }}" class="pin-it-button" count-layout="horizontal">Pin It</a>
+	</div>
+	<div style="float:left;padding-top: 10px">
+		<fb:like href="{{ request.build_absolute_uri }}" layout="button_count"></fb:like>
 	</div>
 	<div class="clear"></div>
 	

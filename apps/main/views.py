@@ -55,21 +55,22 @@ def artists(request, num):
 	
 	for a in artists :
 		a.images(8)
-	return render_to_response('main/search.html', {'artists': artists, 'pager': pager, 'page': page})
+	return render_to_response('main/search.html', {'artists': artists, 'pager': pager, 'page': page}, context_instance=RequestContext(request))
 
 def artist(request, artist_id):
 	artist = get_object_or_404(Artist, pk=artist_id)
-		
+	if (artist.active == False) :
+		raise Http404
 	if (artist.submission == True) :
-		return submission(artist)
+		return submission(request, artist)
 		
 	artist.images(8)
-	return render_to_response('main/artist.html', {'artist':artist})
+	return render_to_response('main/artist.html', {'artist':artist}, context_instance=RequestContext(request))
 
 
-def submission(artist):	
+def submission(request, artist):	
 	artist.images()
-	return render_to_response('account/submission.html', {'artist':artist})
+	return render_to_response('account/submission.html', {'artist':artist}, context_instance=RequestContext(request))
 
 
 def collection(request, collection_id, num):
@@ -91,7 +92,7 @@ def collection(request, collection_id, num):
 	c = Context({'page': page, 'collection': collection})
 	pager = t.render(c)
 	images = page.object_list
-	return render_to_response('main/collection.html', {'artist':artist, 'collection': collection, 'images': images, 'pager': pager, 'page': page})
+	return render_to_response('main/collection.html', {'artist':artist, 'collection': collection, 'images': images, 'pager': pager, 'page': page}, context_instance=RequestContext(request))
 
 def image(request, image_id):
 	site = Site.objects.get(id=settings.SITE_ID)
@@ -107,8 +108,11 @@ def image(request, image_id):
 	#collection.images	=	random.sample(images, len(images)<10 and len(images) or 10)
 	collection.images	=	images[:10]
 
-	return render_to_response('main/image.html', {'image':image, 'collection':collection, 'artist':artist, 'url':site.domain})
+	return render_to_response('main/image.html', {'image':image, 'collection':collection, 'artist':artist, 'url':site.domain}, context_instance=RequestContext(request))
 
 def random(request):
 	images = Image.objects.filter(collection__artist__submission=0, collection__artist__active=1).order_by('?')[:16]
-	return render_to_response('main/random.html', {'images': images})
+	return render_to_response('main/random.html', {'images': images}, context_instance=RequestContext(request))
+	
+def iphone(request):
+	return render_to_response('main/iphone.html', context_instance=RequestContext(request))

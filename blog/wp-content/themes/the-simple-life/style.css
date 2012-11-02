@@ -1,8 +1,7 @@
 /* search form */
 
 #searchform {
-	display: inline;
-	float: right;
+	padding-bottom: 12px;
 }
 
 #searchform div {

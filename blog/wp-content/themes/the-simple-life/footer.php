@@ -22,12 +22,15 @@ include('sidebar.php');
 				<ul>
 					<li><a href="<?php echo INDIE_URL ?>" title="Home">Home</a> -</li>
 					<li><a href="/">Blog</a> -</li>
-					<li><a class="current" href="<?php echo INDIE_URL ?>search">Artists</a></li>
+					<li><a class="current" href="<?php echo INDIE_URL ?>search">Artists</a> -</li>
+					<li><a href="<?php echo INDIE_URL ?>account/submission/list">Submissions!</a> -</li>
+				    <li><a href="<?php echo INDIE_URL ?>random">Discover</a> -</li>
+					<li><a href="<?php echo INDIE_URL ?>iphone">iPhone App</a></li>
 				</ul>
 				</div>
 				<div class="social-links">
 					<a href="http://twitter.com/indiesart">Follow Us on Twitter</a>
-					<img src="<?php echo INDIE_URL ?>/assets/style/images/twitter-logo.jpg" alt="twitter" />
+					<img src="<?php echo INDIE_FILES_URL ?>/style/images/twitter-logo.jpg" alt="twitter" />
 				</div>
 				<div class="clear"></div>
 				<p id="copyright">&copy; Copyright IndiesArt.com</p>
