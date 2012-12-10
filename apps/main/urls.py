@@ -9,4 +9,5 @@ urlpatterns = patterns('main.views',
 	url(r'^collection/(?P<collection_id>\d+)', collection, {'num':1}),
 	url(r'^image/(?P<image_id>\d+)', image, name='image'),
 	url(r'^random$', 'random'),
+	url(r'^iphone$', 'iphone'),
 )

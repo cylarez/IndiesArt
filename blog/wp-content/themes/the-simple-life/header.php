@@ -15,17 +15,17 @@ else :
 	<link href="<?php echo INDIE_URL ?>assets/style/images/favicon.png" rel="shortcut icon"/>
 	<meta name="google-site-verification" content="exJMMKZzfAIGT88wiStwFXBJseUCLvq4RW_lDkWs-Y4" />
 	
-	<script type="text/javascript" src="<?php echo INDIE_URL ?>assets/js/jquery-1.4.4.min.js"></script>
-	<script type="text/javascript" src="<?php echo INDIE_URL ?>assets/js/jQuery.easing.js"></script>
-	<script type="text/javascript" src="<?php echo INDIE_URL ?>assets/js/jQuery.fancybox.js"></script>
-	<script type="text/javascript" src="<?php echo INDIE_URL ?>assets/js/indiesart.js?v=5"></script>
+	<script type="text/javascript" src="<?php echo INDIE_FILES_URL ?>js/jquery-1.4.4.min.js"></script>
+	<script type="text/javascript" src="<?php echo INDIE_FILES_URL ?>js/jQuery.easing.js"></script>
+	<script type="text/javascript" src="<?php echo INDIE_FILES_URL ?>js/jQuery.fancybox.js"></script>
+	<script type="text/javascript" src="<?php echo INDIE_FILES_URL ?>js/indiesart.js?v=5"></script>
 	<script src="http://widgets.twimg.com/j/2/widget.js"></script>
 	
 	<style type="text/css" media="screen">
 		@import url( <?php bloginfo('stylesheet_url'); ?> );
 	</style>
 	
-	<link media="screen" href="<?php echo INDIE_URL ?>assets/style/style.css" type="text/css" rel="stylesheet"/>
+	<link media="screen" href="<?php echo INDIE_FILES_URL ?>style/style.css" type="text/css" rel="stylesheet"/>
 	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://feeds.feedburner.com/IndiesartBlog" />
 	<link rel="alternate" type="text/xml" title="RSS .92" href="<?php bloginfo('rss_url'); ?>" />
 	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="<?php bloginfo('atom_url'); ?>" />
@@ -72,17 +72,8 @@ else :
 				<li><a href="<?php echo INDIE_URL ?>search">Artists</a></li>
 				<li><a id="submission" href="<?php echo INDIE_URL ?>account/submission/list">Submissions!</a></li>
 				<li><a href="<?php echo INDIE_URL ?>random">Discover</a></li>
-				<li><a href="mailto:info@indiesart.com">Contact</a></li>
-				<li id="searchit">
-				
-					<form id="searchform" method="get" action="<?php echo $PHP_SELF; ?>">
-
-						<label for="s"><?php _e('Search:'); ?></label>	
-						<input type="text" name="s" id="s" accesskey="4" />
-						<input type="submit" name="submit" value="<?php _e('Search'); ?>" />
-
-					</form>
-				</li>	
+				<li><a href="<?php echo INDIE_URL ?>iphone">iPhone App</a></li>
+				<li><a href="mailto:info@indiesart.com">Contact</a></li>	
 			</ul>
 			
 			<div id="content" class="panel-left" style="width:664px">

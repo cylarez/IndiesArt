@@ -8,7 +8,17 @@ else :
 
 <div id="sidebar" style="width:280px;">
 	<div id="nav">
-	
+
+				
+		<form id="searchform" method="get" action="<?php echo $PHP_SELF; ?>">
+
+			<label for="s"><?php _e('Search:'); ?></label>	
+			<input type="text" name="s" id="s" accesskey="4" />
+			<input type="submit" name="submit" value="<?php _e('Search'); ?>" />
+
+		</form>
+
+				
 		<div id="cats">
 			<h2 id="nav-head"><?php _e('Navigate'); ?></h2>
 			<ul>

@@ -44,11 +44,6 @@ USE_I18N = True
 #MEDIA_ROOT = settings_local.MAIN_DIR + 'assets/'
 MEDIA_ROOT = MAIN_DIR +'assets/'
 
-# URL that handles the media served from MEDIA_ROOT. Make sure to use a
-# trailing slash if there is a path component (optional in other cases).
-# Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = 'http://files.indiesart.com/assets/'
-
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
@@ -57,6 +52,11 @@ ADMIN_MEDIA_PREFIX = '/media/'
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = ('django.template.loaders.filesystem.Loader',
  'django.template.loaders.app_directories.Loader')
+ 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.request',
+    'django.contrib.auth.context_processors.auth'
+)
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',

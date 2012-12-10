@@ -7,30 +7,39 @@
 
 {% block head %}
 
-<script type="text/javascript" src="/assets/js/jqtransformplugin/jquery.jqtransform.js"></script>
-<link rel="stylesheet"type="text/css" href="/assets/js/jqtransformplugin/jqtransform.css" media="screen" />
-<script type="text/javascript" src="/assets/js/jquery.MultiFile.pack.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}/js/jqtransformplugin/jquery.jqtransform.js"></script>
+<link rel="stylesheet"type="text/css" href="{{ MEDIA_URL }}/js/jqtransformplugin/jqtransform.css" media="screen" />
+<script type="text/javascript" src="{{ MEDIA_URL }}/js/jquery.MultiFile.pack.js"></script>
 <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.min.js"></script>
 
-<script type="text/javascript" src="/assets/js/tipsy/jquery.tipsy.js"></script>
-<link rel="stylesheet"type="text/css" href="/assets/js/tipsy/tipsy.css" media="screen" />
+<script type="text/javascript" src="{{ MEDIA_URL }}/js/tipsy/jquery.tipsy.js"></script>
+<link rel="stylesheet"type="text/css" href="{{ MEDIA_URL }}/js/tipsy/tipsy.css" media="screen" />
 
 
 <script type="text/javascript">
 
 $(document).ready(function() {
+
+    var posted = '{{ posted }}';
+    if (posted == 'True') {
+        alert("Thank you for your submission!\nPlease check your email box.");
+    }
+
 	$.fn.tipsy.defaults.opacity = 0.7;
 	$("form.jqtransform").jqTransform();
 
 	$('#step').validate({
         submitHandler: function(form) {
-            if (! $('.MultiFile-label').length) {
-                alert('This is no image in your gallery...');
+            if ($('.MultiFile-label').length < 5) {
+                alert('This is not enough image in your gallery.\nPlease select at least 5 images.');
                 return;
             }
-            $('#submit-submission span:last').html('Loading please wait ...');
+            $('.submit').addClass('wait').val('Please wait').click(function(){return false});;
             $.fancybox.showActivity();
-            form.submit();
+            form.submit();   
+        },
+        invalidHandler: function() {
+            alert("Your form is invalid.\nPlease check all the required fields.");
         }
     });
 
@@ -49,10 +58,11 @@ $(document).ready(function() {
 <h1>Submission</h1>
 
 <form id="step" enctype="multipart/form-data" action="/account/submission/new" method="post" class="jqtransform">
+    {% csrf_token %}
 	<div class="round" style="margin-bottom:30px">
 		<h2 class="with-icon step-info">Information</h2>
 		<div style="padding-left:62px">
-			<p>Here is the Submission Process! Fill out your profile information, give a name for the submitted gallery and choose the image files.</p>
+			<p>Here is the Submission Process! Fill out your profile information, give a name for the submitted gallery and select <b>at least 5 images</b>.</p>
 			<p>After that we will received your submission and if the information seems correct you will be published in the <a href="/account/submission/list">Submissions List</a>.</p>
 			<br/>
 			<p>Then you will receive a unique address which you could share with your fiends and fans.</p>
@@ -135,14 +145,23 @@ $(document).ready(function() {
 	
 	<div class="clear"></div>
 	
-	<div class="step-panel round" style="margin-right:15px;height:90px;">
+	<div class="step-panel round" style="margin-right:15px;height:230px;">
 		<h2 class="with-icon step-3">Send your submission</h2>
 		<div class="rowElem" style="padding-left:70px">
-			<input id="submit-submission" type="submit" value="Submit All" />
+		
+		
+            <script type="text/javascript" src="http://www.google.com/recaptcha/api/challenge?k=6LeFMskSAAAAAHVOtuk8kGYROEmO3zCPbzW105l3{{ captcha_error }}"></script>
+            <noscript>
+                <iframe src="http://www.google.com/recaptcha/api/noscript?k=6LeFMskSAAAAAHVOtuk8kGYROEmO3zCPbzW105l3" height="300" width="500" frameborder="0"></iframe><br>
+                <textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>
+                <input type="hidden" name="recaptcha_response_field" value="manual_challenge">
+            </noscript>
+		
+			<input id="submit-submission" class="submit classy jqtranformdone" style="margin-top:10px" type="submit" value="Submit All" />
 		</div>
 	</div>
 	
-	<div class="step-panel round" style="height:90px;">
+	<div class="step-panel round" style="height:230px;">
 		<h2 class="with-icon step-4">Wait to being approved!</h2>
 		<p style="padding-left:62px">Now we will check your submission and see if all is fine!</p>
 	</div>
