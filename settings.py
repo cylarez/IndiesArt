@@ -65,8 +65,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
-ROOT_URLCONF = 'indiesart.urls'
-
 TEMPLATE_DIRS = (
     MAIN_DIR +'templates/'
 )

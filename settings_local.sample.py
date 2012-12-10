@@ -1,6 +1,7 @@
 # Site conf
 MAIN_DIR = ''
 BLOG_URL = ''
+ROOT_URLCONF = 'indiesart.urls'
 DEBUG = True
 SITE_ID = 1
 
