@@ -41,8 +41,8 @@ USE_I18N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-#MEDIA_ROOT = settings_local.MAIN_DIR + 'assets/'
-MEDIA_ROOT = MAIN_DIR +'assets/'
+#MEDIA_ROOT = settings_local.PROJECT_ROOT + 'assets/'
+MEDIA_ROOT = PROJECT_ROOT +'assets/'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
@@ -66,7 +66,7 @@ MIDDLEWARE_CLASSES = (
 )
 
 TEMPLATE_DIRS = (
-    MAIN_DIR +'templates/'
+    PROJECT_ROOT +'/templates/'
 )
 
 INSTALLED_APPS = (
