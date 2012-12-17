@@ -5,6 +5,7 @@ from django.contrib.sites.models import Site
 from django.core import serializers
 from django.template import Context, Template
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
+from django.views.generic.simple import direct_to_template
 
 import random, json
 
@@ -35,7 +36,7 @@ def index(request):
 	lastImages = Image.objects.filter(collection__artist__submission=0, collection__artist__active=1)[:16]
 	randomImages = Image.objects.filter(collection__artist__submission=0, collection__artist__active=1).order_by('?')[:16]
 	
-	return render_to_response('main/index.html', {'homeArtists':homeArtists, 'artists':artists, 'lastImages':lastImages, 'lastCollection':lastCollection, 'randomImages': randomImages})
+	return direct_to_template(request, 'main/index.html', {'homeArtists':homeArtists, 'artists':artists, 'lastImages':lastImages, 'lastCollection':lastCollection, 'randomImages': randomImages})
 
 
 def artists(request, num):
