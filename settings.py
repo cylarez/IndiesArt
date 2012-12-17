@@ -4,7 +4,7 @@ import os.path
 import sys
 
 
-PROJECT_ROOT = os.path.normpath(os.path.dirname(__file__))
+PROJECT_ROOT = os.path.normpath(os.path.dirname(__file__)) +'/'
 sys.path.insert(0, os.path.join(PROJECT_ROOT, 'apps'))
 
 try:
@@ -61,7 +61,8 @@ TEMPLATE_LOADERS = ('django.template.loaders.filesystem.Loader',
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
-    'django.contrib.auth.context_processors.auth'
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.media'
 )
 
 MIDDLEWARE_CLASSES = (

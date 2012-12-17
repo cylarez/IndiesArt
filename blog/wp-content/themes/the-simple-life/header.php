@@ -58,9 +58,9 @@ else :
 				<div id="top">
 					<div class="desc">Daily illustrations and graphic stuff for alternative art lovers</div>
 					<div class="social-media">
-						<a target="_blank" href="http://feeds.feedburner.com/IndiesartBlog"><img src="<?php echo INDIE_URL ?>assets/style/images/rss-logo.png" alt="rss"/></a>
-						<a target="_blank" href="http://twitter.com/indiesart"><img src="<?php echo INDIE_URL ?>assets/style/images/twitter-logo-2.png" alt="twitter"/></a>
-						<a title="Facebook" target="_blank" href="http://www.facebook.com/pages/Indiesart/113879095324838"><img src="<?php echo INDIE_URL ?>assets/style/images/facebook.png" alt="facebook"/></a>
+						<a target="_blank" href="http://feeds.feedburner.com/IndiesartBlog"><img src="<?php echo INDIE_FILES_URL ?>assets/style/images/rss-logo.png" alt="rss"/></a>
+						<a target="_blank" href="http://twitter.com/indiesart"><img src="<?php echo INDIE_FILES_URL ?>assets/style/images/twitter-logo-2.png" alt="twitter"/></a>
+						<a title="Facebook" target="_blank" href="http://www.facebook.com/pages/Indiesart/113879095324838"><img src="<?php echo INDIE_FILES_URL ?>assets/style/images/facebook.png" alt="facebook"/></a>
 					</div>
 				</div>
 				<div class="clear"></div>
