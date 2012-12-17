@@ -46,7 +46,7 @@
       
 		{% for artist in homeArtists %}
 		<div style="display:none">
-			<img src="{{ artist.image.home_file_name }}" alt="{{ artist.image }}"/>
+			<img src="{{ artist.slideImage.url }}" alt="{{ artist.image }}"/>
 			<img class="thumbnail" src="{{ artist.image.photo.url_200x200 }}" alt="{{ artist.image }} thumbnail"/>
 			<div class="caption"><a style="font-size:14px" href="{{ artist.url }}">{{ artist }} >></a><br/> {{ artist.bio|safe|truncatewords_html:35 }}</div>
 		</div>

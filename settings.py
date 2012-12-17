@@ -82,10 +82,24 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.sitemaps',
+    'django.contrib.staticfiles',
     'main',
     'blog',
     'account',
     'mobile',
+    'easy_thumbnails',
+    'image_cropping'
 )
 
 MOBILE_JSON_PATH = 'mobile_data.json'
+
+#For image cropping
+IMAGE_CROPPING_SIZE_WARNING = True
+from easy_thumbnails.conf import Settings as thumbnail_settings
+THUMBNAIL_PROCESSORS = (
+    'image_cropping.thumbnail_processors.crop_corners',
+) + thumbnail_settings.THUMBNAIL_PROCESSORS
+
+STATICFILES_DIRS = (
+    PROJECT_ROOT +'static/',
+)

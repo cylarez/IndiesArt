@@ -6,3 +6,5 @@ blog/wp-config-local.php
 blog/wp-content/uploads
 settings_local.py
 assets/mobile_data.json
+/nbproject/private/
+/www.indiesart.com.sql

@@ -5,12 +5,18 @@ from django.conf import settings
 from django.contrib.sitemaps import ping_google
 from django.contrib.sites.models import Site
 from django.core import urlresolvers
+from django.db.models.fields.files import ImageField
 from main.thumbs import ImageWithThumbsField
+from image_cropping.fields import ImageRatioField, ImageCropField
 
 from django.shortcuts import *
 from django.template import Context, Template
 
 import random, re, json, logging
+
+import Image as PImage
+import pdb
+#pdb.set_trace() command to stop server and debug in console
 
 site = Site.objects.get(id=settings.SITE_ID)
 
@@ -160,7 +166,7 @@ class Collection(DefaultModel):
 class Piece(DefaultModel):
     name = models.CharField(max_length=255, blank=True, verbose_name=_("Piece Title"))
     focused = models.BooleanField(default=0)
-    collection = models.ForeignKey(Collection)
+    collection = models.ForeignKey(Collection)     
 
 class Image(Piece):
     def get_path(self, name):
@@ -180,7 +186,59 @@ class Image(Piece):
             return ''
         return '<img src="%s" style="padding:5px" alt="thumb" />' % (self.photo.url_200x200,)
     thumb_admin.allow_tags = True
+    
+class HomeImage(models.Model):
+    image = models.ForeignKey(Image)
+    image_field = ImageCropField(blank=True, null=True, upload_to='home_slide/')
+    active		= 	models.BooleanField(default=0)
+    cropping = ImageRatioField('image_field', '625x350', size_warning=True)
+    croppedImage = ImageField(blank=True, null=True, upload_to='home_slide/')
 
+    def __unicode__(self):
+        return self.image.collection.artist.__unicode__()
+    
+    def save(self, *args, **kwargs):
+        # Get file name from image
+        strImagePath = self.image.photo.name
+        strImageName = strImagePath.split('/')[3]
+        strUploadTo = 'home_slide/'
+        strExtention = '.300x300_q85_detail.jpg'
+        
+        # Set image field path
+        strDesImage = strUploadTo + strImageName
+        self.image_field = strDesImage
+    
+        if(self.id is not None):
+            homeImage = HomeImage.objects.get(pk=self.id)
+        else:
+            homeImage = None
+        
+        if(homeImage is None or homeImage.image != self.image):
+            # Copy file into image field path
+            im = PImage.open(settings.MEDIA_ROOT + strImagePath)
+            im.save(settings.MEDIA_ROOT + strDesImage)
+            
+            # Copy image into image field path with extension for Cropping field
+            exIm = PImage.open(settings.MEDIA_ROOT + strImagePath)
+            exIm.save(settings.MEDIA_ROOT + strDesImage + strExtention)
+            
+        if(self.cropping != ''):
+            # Crop image
+            cropImage = PImage.open(settings.MEDIA_ROOT + strImagePath)
+            cropP = self.cropping.split(',')
+            box = (int(cropP[0]), int(cropP[1]), int(cropP[2]), int(cropP[3]))
+            croppedImageName = strUploadTo + 'slide_' + str(self.image.id) + '.jpg'
+            self.croppedImage = croppedImageName
+            cropImage.crop(box).save(settings.MEDIA_ROOT + croppedImageName)
+            
+            # Resize cropped image
+            size = 625,350
+            im = PImage.open(settings.MEDIA_ROOT + croppedImageName)
+            im.thumbnail(size, PImage.ANTIALIAS)
+            im.save(settings.MEDIA_ROOT + croppedImageName)
+        
+        super(HomeImage, self).save(*args, **kwargs)
+    
 class User(DjangoUser):
 	favoris = models.ManyToManyField(Collection, blank=True, related_name='Favoris')
 	
@@ -188,15 +246,14 @@ class User(DjangoUser):
 # Various data shortcut
 
 def getHomeArtists():
-    homeImageId = [18906, 14670, 18854, 17226, 16300, 16196, 9688, 13213, 13582, 13156, 12563, 12351, 11663, 11291, 10689, 9940]
-    #homeImageId = [18906, 14670, 18854, 17393, 17226, 16300, 16196, 9688, 13213, 13704, 13582, 13156, 12563, 12351, 11663, 11291, 10689, 9940]
     homeArtists = []
-    
-    for id in homeImageId :
-        i = Image.objects.get(pk=id)
-        a = i.collection.artist
-        a.image = i
-        homeArtists.append(a)
+
+    homeShowImage = HomeImage.objects.filter(active=1)
+    for homeImage in homeShowImage :
+        artist = homeImage.image.collection.artist
+        artist.image = homeImage.image
+        artist.slideImage = homeImage.croppedImage
+        homeArtists.append(artist)
     
     return homeArtists
 

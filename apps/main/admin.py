@@ -12,6 +12,8 @@ from django.utils.html import strip_tags
 from datetime import datetime
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
+from image_cropping import ImageCroppingMixin
+import pdb
 
 
 INDIE_BOX = settings.MEDIA_ROOT +'indie_box/'
@@ -21,14 +23,27 @@ admin.site.register(ArtType)
 admin.site.register(MediaType)
 admin.site.register(UrlType)
 
+def create_slide_image(self, request, queryset):
+    for image in queryset:
+        homeImage = HomeImage(image=image)
+        homeImage.save()
+    self.message_user(request, _("You have created home slide image for this image"))
+
 # Images
 class ImageAdmin(admin.ModelAdmin):
-	list_display = ('name', 'thumb_admin')
-	fields = ('name', 'thumb_admin', 'focused',)
-	readonly_fields = ('thumb_admin',)
+    actions = [create_slide_image]
+    list_display = ('name', 'thumb_admin')
+    fields = ('name', 'thumb_admin', 'focused')
+    readonly_fields = ('thumb_admin',)
+    search_fields = ['name', 'collection__artist__firstname', 'collection__artist__lastname']
 
 admin.site.register(Image, ImageAdmin)
 
+# Home image
+class HomeImageAdmin(admin.ModelAdmin):
+    fields = ('image', 'image_field', 'active', 'cropping')
+
+admin.site.register(HomeImage, HomeImageAdmin)
 
 # Artist
 class UrlInline(admin.TabularInline):
