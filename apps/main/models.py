@@ -234,7 +234,7 @@ class HomeImage(models.Model):
             # Resize cropped image
             size = 625,350
             im = PImage.open(settings.MEDIA_ROOT + croppedImageName)
-            im.thumbnail(size, PImage.ANTIALIAS)
+            im = im.resize(size, PImage.ANTIALIAS)
             im.save(settings.MEDIA_ROOT + croppedImageName)
         
         super(HomeImage, self).save(*args, **kwargs)
